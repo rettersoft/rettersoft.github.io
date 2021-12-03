@@ -8,14 +8,15 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const config = {
   title: 'My Site',
   tagline: 'Dinosaurs are cool',
-  url: 'rettersoft.github.io',
+  url: 'https://rettersoft.github.io',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
   organizationName: 'rettersoft', // Usually your GitHub org/user name.
   projectName: 'rettersoft.github.io', // Usually your repo name.
-
+  deploymentBranch: 'gh-pages',
+  trailingSlash: true,
   presets: [
     [
       '@docusaurus/preset-classic',
