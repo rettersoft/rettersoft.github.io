@@ -6,8 +6,8 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'My Site',
-  tagline: 'Dinosaurs are cool',
+  title: 'Retter Mobile',
+  tagline: 'Beautiful Apps',
   url: 'https://rettersoft.github.io',
   baseUrl: '/',
   onBrokenLinks: 'throw',
@@ -44,9 +44,9 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
-        title: 'My Site',
+        title: 'Retter Mobile',
         logo: {
-          alt: 'My Site Logo',
+          alt: 'Logo alternative',
           src: 'img/logo.svg',
         },
         items: [
@@ -54,11 +54,11 @@ const config = {
             type: 'doc',
             docId: 'intro',
             position: 'left',
-            label: 'Tutorial',
+            label: 'Docs',
           },
           {to: '/blog', label: 'Blog', position: 'left'},
           {
-            href: 'https://github.com/facebook/docusaurus',
+            href: 'https://github.com/rettersoft',
             label: 'GitHub',
             position: 'right',
           },
