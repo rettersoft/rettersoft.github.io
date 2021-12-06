@@ -83,7 +83,15 @@ State consists of four parts:</p><pre><code class="language-json">{
     &quot;roleName1&quot;: { }
   }
 }
-</code></pre>]]></content:encoded>
+</code></pre><h3>Public</h3><p>Public state can be seen by every client connected.</p><h3>Private</h3><p>Private state doesn’t get streamed to any client. Only server side code (objects methods) can see and edit this state.</p><h3>User</h3><p>User object has userId’s in it. Each userId node contains the data specific for that userId. Only that user is allowed to see that data.</p><p><img src="https://miro.medium.com/max/856/1*z2hPPoc3pmG-RBl_LbM-1g.png" alt="rtbs screenshot"/></p><h3>Role</h3><p>Role state can be seen by anybody who has that role.</p><p><img src="https://miro.medium.com/max/960/1*XS1vUwFlu43E2DxRwQit8Q.png" alt="rtbs screenshot"/></p><h3>What do you do with state?</h3><p>In your server side code you update the state object any way you want. Clients connected to this object will receive updates according to their permission level. It easy straight forward.</p><h3>getState function</h3><p>Clients can either get the state via REST api or they can subscribe to state via sdk.</p><p>If you want to get your state via REST api you can define a delegate function in your template file and customize what part of state you will return to anybody making the call. Below I defined a getState function in index.ts.</p><p><img src="https://miro.medium.com/max/1400/1*_m62mrSZOkuoEopDDOse6Q.png" alt="rtbs screenshot"/></p><p>Below is my getState function which returns my objects private state to any caller. Of course this is pretty unsecure. Don’t do this at home :)</p><pre><code class="language-typescript">export async function getState(data: Data): Promise&lt;Response&gt; {
+    return { 
+        statusCode: 200, 
+        body: {
+            ...data.state.private,
+        }
+    }
+}
+</code></pre><p>Thanks.</p>]]></content:encoded>
         </item>
         <item>
             <title><![CDATA[Todo App with CloudObjects — Part 1/3]]></title>
