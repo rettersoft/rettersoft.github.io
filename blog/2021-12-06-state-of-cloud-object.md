@@ -22,3 +22,44 @@ State consists of four parts:
   }
 }
 ```
+
+### Public
+Public state can be seen by every client connected.
+
+### Private
+Private state doesn’t get streamed to any client. Only server side code (objects methods) can see and edit this state.
+
+### User
+User object has userId’s in it. Each userId node contains the data specific for that userId. Only that user is allowed to see that data.
+
+![rtbs screenshot](https://miro.medium.com/max/856/1*z2hPPoc3pmG-RBl_LbM-1g.png)
+
+### Role
+Role state can be seen by anybody who has that role.
+
+![rtbs screenshot](https://miro.medium.com/max/960/1*XS1vUwFlu43E2DxRwQit8Q.png)
+
+### What do you do with state?
+In your server side code you update the state object any way you want. Clients connected to this object will receive updates according to their permission level. It easy straight forward.
+
+### getState function
+Clients can either get the state via REST api or they can subscribe to state via sdk.
+
+If you want to get your state via REST api you can define a delegate function in your template file and customize what part of state you will return to anybody making the call. Below I defined a getState function in index.ts.
+
+![rtbs screenshot](https://miro.medium.com/max/1400/1*_m62mrSZOkuoEopDDOse6Q.png)
+
+Below is my getState function which returns my objects private state to any caller. Of course this is pretty unsecure. Don’t do this at home :)
+
+```typescript
+export async function getState(data: Data): Promise<Response> {
+    return { 
+        statusCode: 200, 
+        body: {
+            ...data.state.private,
+        }
+    }
+}
+```
+
+Thanks.
