@@ -2,11 +2,57 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://rettersoft.github.io/blog</id>
     <title>Retter Mobile Blog</title>
-    <updated>2021-08-26T00:00:00.000Z</updated>
+    <updated>2021-12-06T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://rettersoft.github.io/blog"/>
     <subtitle>Retter Mobile Blog</subtitle>
     <icon>https://rettersoft.github.io/img/favicon.ico</icon>
+    <entry>
+        <title type="html"><![CDATA[An object oriented cloud]]></title>
+        <id>an-object-oriented-cloud</id>
+        <link href="https://rettersoft.github.io/blog/an-object-oriented-cloud"/>
+        <updated>2021-12-06T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Cloud providers like AWS, GCP, Azure are next generation machines for writing programs to. Instead of writing containerized apps you can write serverless apps for these new big super computers.]]></summary>
+        <content type="html"><![CDATA[<p>Cloud providers like AWS, GCP, Azure are next generation machines for writing programs to. Instead of writing containerized apps you can write serverless apps for these new big super computers. </p><p>However they allow you write stateless functions only. Data and functions are separated like in the early days of computing. rtbs.io is an object oriented approach to serverless cloud.</p><p>I will give AWS specific examples in this article.</p><p>Most common approach is to write a function and tie that to a data store like DynamoDB. You can call that function via Api Gateway. From your client application you can call your api via a rest api.</p><h3>Problem</h3><p>Big promise of serverless is that developers only have to write business logic. And it really helps. However they still need to deal with following issues:</p><p><strong>Authentication</strong> — Yes there are services like Cognito, but they are not really easy to use.</p><p><strong>Client-Server-Communication</strong> — Rest api’s are great but they are not as easy as realtime syncing of client/server data.</p><p><strong>Sorting of client requests</strong> — Biggest problem is that somehow you need to sort requests coming from clients in object level. Think of a wallet app, transactions need to be fed into a SQS Fifo queue or maybe locked in DynamoDB row level. It becomes even more difficult if you need a request/response model and also need to sort these requests.
+Organization of a project in terms of source code</p><h3>Solution</h3><p>RBS solves these three major problems by implementing following:</p><p><strong>Authentication</strong> — is built into objects.
+<strong>Client-Server-Communication</strong> — Objects have internal state and this state is streamed to clients in realtime.
+<strong>Sorting</strong> — Any method request to an object is queued and handled in FIFO manner.</p><h3>Example: A simple wallet</h3><p>The following template.yml defines two methods in a class.</p><pre><code class="language-yml">preAuthorizer: index.preAuthorizer
+authorizer: index.authorizer
+init: index.init
+getState: index.getState
+getInstanceId: index.getInstanceId
+methods:
+    - method: addMoney
+      tag: test
+      sync: true
+      steps:
+          - id: addMoney
+            
+    - method: spendMoney
+      tag: test
+      sync: true
+      steps:
+          - id: spendMoney
+            handler: index.spendMoneyHandler
+          - id: success
+          - id: insufficientFunds
+            handler: index.handler
+      flow:
+          - direction:
+                - spendMoney
+                - success
+          - id: gotoInsufficientFunds
+            direction:
+                - spendMoney
+                - insufficientFunds
+
+
+</code></pre>]]></content>
+        <author>
+            <name>Baran Baygan</name>
+            <uri>https://github.com/baranbaygan</uri>
+        </author>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Welcome]]></title>
         <id>welcome</id>
@@ -34,18 +80,6 @@
         <author>
             <name>Sébastien Lorber</name>
             <uri>https://sebastienlorber.com</uri>
-        </author>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Long Blog Post]]></title>
-        <id>long-blog-post</id>
-        <link href="https://rettersoft.github.io/blog/long-blog-post"/>
-        <updated>2019-05-29T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[This is the summary of a very long blog post,]]></summary>
-        <content type="html"><![CDATA[<p>This is the summary of a very long blog post,</p><p>Use a <code>&lt;!--</code> <code>truncate</code> <code>--&gt;</code> comment to limit blog post size in the list view.</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum dignissim ultricies. Fusce rhoncus ipsum tempor eros aliquam consequat. Lorem ipsum dolor sit amet</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum dignissim ultricies. Fusce rhoncus ipsum tempor eros aliquam consequat. Lorem ipsum dolor sit amet</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum dignissim ultricies. Fusce rhoncus ipsum tempor eros aliquam consequat. Lorem ipsum dolor sit amet</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum dignissim ultricies. Fusce rhoncus ipsum tempor eros aliquam consequat. Lorem ipsum dolor sit amet</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum dignissim ultricies. Fusce rhoncus ipsum tempor eros aliquam consequat. Lorem ipsum dolor sit amet</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum dignissim ultricies. Fusce rhoncus ipsum tempor eros aliquam consequat. Lorem ipsum dolor sit amet</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum dignissim ultricies. Fusce rhoncus ipsum tempor eros aliquam consequat. Lorem ipsum dolor sit amet</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum dignissim ultricies. Fusce rhoncus ipsum tempor eros aliquam consequat. Lorem ipsum dolor sit amet</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum dignissim ultricies. Fusce rhoncus ipsum tempor eros aliquam consequat. Lorem ipsum dolor sit amet</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum dignissim ultricies. Fusce rhoncus ipsum tempor eros aliquam consequat. Lorem ipsum dolor sit amet</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum dignissim ultricies. Fusce rhoncus ipsum tempor eros aliquam consequat. Lorem ipsum dolor sit amet</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum dignissim ultricies. Fusce rhoncus ipsum tempor eros aliquam consequat. Lorem ipsum dolor sit amet</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum dignissim ultricies. Fusce rhoncus ipsum tempor eros aliquam consequat. Lorem ipsum dolor sit amet</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum dignissim ultricies. Fusce rhoncus ipsum tempor eros aliquam consequat. Lorem ipsum dolor sit amet</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum dignissim ultricies. Fusce rhoncus ipsum tempor eros aliquam consequat. Lorem ipsum dolor sit amet</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum dignissim ultricies. Fusce rhoncus ipsum tempor eros aliquam consequat. Lorem ipsum dolor sit amet</p>]]></content>
-        <author>
-            <name>Endilie Yacop Sucipto</name>
-            <uri>https://github.com/endiliey</uri>
         </author>
     </entry>
     <entry>
