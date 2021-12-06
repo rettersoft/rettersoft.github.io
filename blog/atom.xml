@@ -70,6 +70,49 @@ co.state.public?.subscribe((publicState: any) =&gt; {
         </author>
     </entry>
     <entry>
+        <title type="html"><![CDATA[CloudObject — A Simple User with Auth — Part 2/3]]></title>
+        <id>cloudobject-a-simple-user-with-auth-part-2-3</id>
+        <link href="https://rettersoft.github.io/blog/cloudobject-a-simple-user-with-auth-part-2-3"/>
+        <updated>2021-12-06T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[In the last part we have implemented a signup method. Now we will add a method for signin in. Let’s change our template as follows:]]></summary>
+        <content type="html"><![CDATA[<p>In the last part we have implemented a signup method. Now we will add a method for signin in. Let’s change our template as follows:</p><pre><code class="language-yml">preAuthorizer: index.preAuthorizer
+authorizer: index.authorizer
+init: index.init
+getState: index.getState
+getInstanceId: index.getInstanceId
+methods:
+    - method: addMoney
+      tag: test
+      sync: true
+      steps:
+          - id: addMoney
+            
+    - method: spendMoney
+      tag: test
+      sync: true
+      steps:
+          - id: spendMoney
+            handler: index.spendMoneyHandler
+          - id: success
+          - id: insufficientFunds
+            handler: index.handler
+      flow:
+          - direction:
+                - spendMoney
+                - success
+          - id: gotoInsufficientFunds
+            direction:
+                - spendMoney
+                - insufficientFunds
+
+
+</code></pre><p>So our class diagram looks like this:</p><p><img src="https://miro.medium.com/max/1400/1*wx68mhOaeNxx397UAMd_Hw.png" alt="rtbs screenshot"/></p><p>We already have our generateToken function implemented. That will stay the same. Let’s implement the rest; validateCredentials and invalidCredentials</p><p><a href="https://miro.medium.com/max/1400/1*KggpuTwzIz4Ekeizidw8Ow.png">rtbs screenshot</a></p><p>If you don’t define a nextFlowId the next flow direction without any id will be executed. So validateCredentials will lead to generateToken</p><p>Of course credential validation is not going to be like this. You probably should bcrypt the password when saving it and compare bcrypted versions. But for sake of simplicity let’s just compare clear text passwords.</p><p>Invalid credentials step updates response object and sets statusCode to 403.</p><p><a href="https://miro.medium.com/max/1400/1*rrTk-wM1FgA2f6xEJ-T41Q.png">rtbs screenshot</a></p><p>Otherwise generateToken is called and a token will be returned to the client.</p><p>In the next part we will implement the preAuthorizer and authorizer functions.</p><p>Thanks.</p>]]></content>
+        <author>
+            <name>Baran Baygan</name>
+            <uri>https://github.com/baranbaygan</uri>
+        </author>
+    </entry>
+    <entry>
         <title type="html"><![CDATA[CloudObject — A Simple User with Auth — Part 1/3]]></title>
         <id>cloudobject-a-simple-user-with-auth-part-1-3</id>
         <link href="https://rettersoft.github.io/blog/cloudobject-a-simple-user-with-auth-part-1-3"/>

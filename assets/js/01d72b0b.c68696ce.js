@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkrbs_dev_docs=self.webpackChunkrbs_dev_docs||[]).push([[6697],{7594:function(s){s.exports=JSON.parse('{"allTagsPath":"/blog/tags","slug":"/blog/tags/rbs","name":"Rbs","count":2,"permalink":"/blog/tags/rbs"}')}}]);
