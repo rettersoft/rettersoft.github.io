@@ -47,7 +47,7 @@ So our class diagram looks like this:
 
 We already have our generateToken function implemented. That will stay the same. Let’s implement the rest; validateCredentials and invalidCredentials
 
-[rtbs screenshot](https://miro.medium.com/max/1400/1*KggpuTwzIz4Ekeizidw8Ow.png)
+![rtbs screenshot](https://miro.medium.com/max/1400/1*KggpuTwzIz4Ekeizidw8Ow.png)
 
 If you don’t define a nextFlowId the next flow direction without any id will be executed. So validateCredentials will lead to generateToken
 
@@ -55,7 +55,7 @@ Of course credential validation is not going to be like this. You probably shoul
 
 Invalid credentials step updates response object and sets statusCode to 403.
 
-[rtbs screenshot](https://miro.medium.com/max/1400/1*rrTk-wM1FgA2f6xEJ-T41Q.png)
+![rtbs screenshot](https://miro.medium.com/max/1400/1*rrTk-wM1FgA2f6xEJ-T41Q.png)
 
 Otherwise generateToken is called and a token will be returned to the client.
 
