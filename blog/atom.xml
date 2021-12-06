@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://rettersoft.github.io/blog</id>
     <title>Retter Mobile Blog</title>
-    <updated>2021-12-06T00:00:00.000Z</updated>
+    <updated>2021-12-07T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://rettersoft.github.io/blog"/>
     <subtitle>Retter Mobile Blog</subtitle>
@@ -11,6 +11,142 @@
         <title type="html"><![CDATA[rtbs.io - An object oriented cloud]]></title>
         <id>an-object-oriented-cloud</id>
         <link href="https://rettersoft.github.io/blog/an-object-oriented-cloud"/>
+        <updated>2021-12-07T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Cloud providers like AWS, GCP, Azure are next generation machines for writing programs to. Instead of writing containerized apps you can write serverless apps for these new big super computers.]]></summary>
+        <content type="html"><![CDATA[<p>Cloud providers like AWS, GCP, Azure are next generation machines for writing programs to. Instead of writing containerized apps you can write serverless apps for these new big super computers. </p><p>However they allow you write stateless functions only. Data and functions are separated like in the early days of computing. rtbs.io is an object oriented approach to serverless cloud.</p><p><img src="http://s.rtbs.io/img/1*Nz9RJzQD_s1dN7d66n6Zsw.png" alt="rtbs screenshot"/></p><p>I will give AWS specific examples in this article.</p><p>Most common approach is to write a function and tie that to a data store like DynamoDB. You can call that function via Api Gateway. From your client application you can call your api via a rest api.</p><h3>Problem</h3><p>Big promise of serverless is that developers only have to write business logic. And it really helps. However they still need to deal with following issues:</p><p><strong>Authentication</strong> — Yes there are services like Cognito, but they are not really easy to use.</p><p><strong>Client-Server-Communication</strong> — Rest api’s are great but they are not as easy as realtime syncing of client/server data.</p><p><strong>Sorting of client requests</strong> — Biggest problem is that somehow you need to sort requests coming from clients in object level. Think of a wallet app, transactions need to be fed into a SQS Fifo queue or maybe locked in DynamoDB row level. It becomes even more difficult if you need a request/response model and also need to sort these requests.
+Organization of a project in terms of source code</p><h3>Solution</h3><p>RBS solves these three major problems by implementing following:</p><p><strong>Authentication</strong> — is built into objects.
+<strong>Client-Server-Communication</strong> — Objects have internal state and this state is streamed to clients in realtime.
+<strong>Sorting</strong> — Any method request to an object is queued and handled in FIFO manner.</p><h3>Example: A simple wallet</h3><p>The following template.yml defines two methods in a class.</p><pre><code class="language-yml">preAuthorizer: index.preAuthorizer
+authorizer: index.authorizer
+init: index.init
+getState: index.getState
+getInstanceId: index.getInstanceId
+methods:
+    - method: addMoney
+      tag: test
+      sync: true
+      steps:
+          - id: addMoney
+            
+    - method: spendMoney
+      tag: test
+      sync: true
+      steps:
+          - id: spendMoney
+            handler: index.spendMoneyHandler
+          - id: success
+          - id: insufficientFunds
+            handler: index.handler
+      flow:
+          - direction:
+                - spendMoney
+                - success
+          - id: gotoInsufficientFunds
+            direction:
+                - spendMoney
+                - insufficientFunds
+
+
+</code></pre><p>This class definition template yml file creates the following diagram.</p><p><img src="http://s.rtbs.io/img/1*Nz9RJzQD_s1dN7d66n6Zsw.png" alt="rtbs screenshot"/></p><p>We have two methods we can call from our clients. To call this object first you need to create an RBS SDK instance.</p><pre><code class="language-typescript">this.rbs = RBS.getInstance({
+  projectId: &#x27;{RBS_PROJECT_ID}&#x27;
+})
+</code></pre><p>Let’s get an instance of our WalletB class. We also immediately start listening to its state updates.</p><pre><code class="language-typescript">const co = await this.rbs?.getCloudObject({
+  classId: &#x27;WalletB&#x27;
+})
+
+co.state.public?.subscribe((publicState: any) =&gt; {
+  console.log(&#x27;publicState&#x27;, publicState)
+})
+</code></pre><p>Now it’s time to call some methods on our wallet instance</p><pre><code class="language-typescript">await co.call({
+  method: &#x27;spendMoney&#x27;,
+  payload: {
+    amount: 10
+  }
+})
+</code></pre><p>That’s it for now. We will dive deeper into cloud object mechanics in upcoming articles.</p>]]></content>
+        <author>
+            <name>Baran Baygan</name>
+            <uri>https://github.com/baranbaygan</uri>
+        </author>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Todo App with CloudObjects — Part 1/3]]></title>
+        <id>todo-app-1-3</id>
+        <link href="https://rettersoft.github.io/blog/todo-app-1-3"/>
+        <updated>2021-12-06T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[In this article we will create a simple todo class and implement adding an item to it.]]></summary>
+        <content type="html"><![CDATA[<h3>In this article we will create a simple todo class and implement adding an item to it.</h3><p>Let’s write a basic todo app. First let’s create an account in rtbs.io and create a class in your account.</p>]]></content>
+        <author>
+            <name>Baran Baygan</name>
+            <uri>https://github.com/baranbaygan</uri>
+        </author>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Todo App with CloudObjects — Part 2/3]]></title>
+        <id>todo-app-2-3</id>
+        <link href="https://rettersoft.github.io/blog/todo-app-2-3"/>
+        <updated>2021-12-06T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Cloud providers like AWS, GCP, Azure are next generation machines for writing programs to. Instead of writing containerized apps you can write serverless apps for these new big super computers.]]></summary>
+        <content type="html"><![CDATA[<p>Cloud providers like AWS, GCP, Azure are next generation machines for writing programs to. Instead of writing containerized apps you can write serverless apps for these new big super computers. </p><p>However they allow you write stateless functions only. Data and functions are separated like in the early days of computing. rtbs.io is an object oriented approach to serverless cloud.</p><p><img src="http://s.rtbs.io/img/1*Nz9RJzQD_s1dN7d66n6Zsw.png" alt="rtbs screenshot"/></p><p>I will give AWS specific examples in this article.</p><p>Most common approach is to write a function and tie that to a data store like DynamoDB. You can call that function via Api Gateway. From your client application you can call your api via a rest api.</p><h3>Problem</h3><p>Big promise of serverless is that developers only have to write business logic. And it really helps. However they still need to deal with following issues:</p><p><strong>Authentication</strong> — Yes there are services like Cognito, but they are not really easy to use.</p><p><strong>Client-Server-Communication</strong> — Rest api’s are great but they are not as easy as realtime syncing of client/server data.</p><p><strong>Sorting of client requests</strong> — Biggest problem is that somehow you need to sort requests coming from clients in object level. Think of a wallet app, transactions need to be fed into a SQS Fifo queue or maybe locked in DynamoDB row level. It becomes even more difficult if you need a request/response model and also need to sort these requests.
+Organization of a project in terms of source code</p><h3>Solution</h3><p>RBS solves these three major problems by implementing following:</p><p><strong>Authentication</strong> — is built into objects.
+<strong>Client-Server-Communication</strong> — Objects have internal state and this state is streamed to clients in realtime.
+<strong>Sorting</strong> — Any method request to an object is queued and handled in FIFO manner.</p><h3>Example: A simple wallet</h3><p>The following template.yml defines two methods in a class.</p><pre><code class="language-yml">preAuthorizer: index.preAuthorizer
+authorizer: index.authorizer
+init: index.init
+getState: index.getState
+getInstanceId: index.getInstanceId
+methods:
+    - method: addMoney
+      tag: test
+      sync: true
+      steps:
+          - id: addMoney
+            
+    - method: spendMoney
+      tag: test
+      sync: true
+      steps:
+          - id: spendMoney
+            handler: index.spendMoneyHandler
+          - id: success
+          - id: insufficientFunds
+            handler: index.handler
+      flow:
+          - direction:
+                - spendMoney
+                - success
+          - id: gotoInsufficientFunds
+            direction:
+                - spendMoney
+                - insufficientFunds
+
+
+</code></pre><p>This class definition template yml file creates the following diagram.</p><p><img src="http://s.rtbs.io/img/1*Nz9RJzQD_s1dN7d66n6Zsw.png" alt="rtbs screenshot"/></p><p>We have two methods we can call from our clients. To call this object first you need to create an RBS SDK instance.</p><pre><code class="language-typescript">this.rbs = RBS.getInstance({
+  projectId: &#x27;{RBS_PROJECT_ID}&#x27;
+})
+</code></pre><p>Let’s get an instance of our WalletB class. We also immediately start listening to its state updates.</p><pre><code class="language-typescript">const co = await this.rbs?.getCloudObject({
+  classId: &#x27;WalletB&#x27;
+})
+
+co.state.public?.subscribe((publicState: any) =&gt; {
+  console.log(&#x27;publicState&#x27;, publicState)
+})
+</code></pre><p>Now it’s time to call some methods on our wallet instance</p><pre><code class="language-typescript">await co.call({
+  method: &#x27;spendMoney&#x27;,
+  payload: {
+    amount: 10
+  }
+})
+</code></pre><p>That’s it for now. We will dive deeper into cloud object mechanics in upcoming articles.</p>]]></content>
+        <author>
+            <name>Baran Baygan</name>
+            <uri>https://github.com/baranbaygan</uri>
+        </author>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Todo App with CloudObjects — Part 3/3]]></title>
+        <id>todo-app-3-3</id>
+        <link href="https://rettersoft.github.io/blog/todo-app-3-3"/>
         <updated>2021-12-06T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[Cloud providers like AWS, GCP, Azure are next generation machines for writing programs to. Instead of writing containerized apps you can write serverless apps for these new big super computers.]]></summary>
         <content type="html"><![CDATA[<p>Cloud providers like AWS, GCP, Azure are next generation machines for writing programs to. Instead of writing containerized apps you can write serverless apps for these new big super computers. </p><p>However they allow you write stateless functions only. Data and functions are separated like in the early days of computing. rtbs.io is an object oriented approach to serverless cloud.</p><p><img src="http://s.rtbs.io/img/1*Nz9RJzQD_s1dN7d66n6Zsw.png" alt="rtbs screenshot"/></p><p>I will give AWS specific examples in this article.</p><p>Most common approach is to write a function and tie that to a data store like DynamoDB. You can call that function via Api Gateway. From your client application you can call your api via a rest api.</p><h3>Problem</h3><p>Big promise of serverless is that developers only have to write business logic. And it really helps. However they still need to deal with following issues:</p><p><strong>Authentication</strong> — Yes there are services like Cognito, but they are not really easy to use.</p><p><strong>Client-Server-Communication</strong> — Rest api’s are great but they are not as easy as realtime syncing of client/server data.</p><p><strong>Sorting of client requests</strong> — Biggest problem is that somehow you need to sort requests coming from clients in object level. Think of a wallet app, transactions need to be fed into a SQS Fifo queue or maybe locked in DynamoDB row level. It becomes even more difficult if you need a request/response model and also need to sort these requests.
@@ -77,37 +213,8 @@ co.state.public?.subscribe((publicState: any) =&gt; {
         <summary type="html"><![CDATA[Docusaurus blogging features are powered by the blog plugin.]]></summary>
         <content type="html"><![CDATA[<p><a href="https://docusaurus.io/docs/blog">Docusaurus blogging features</a> are powered by the <a href="https://docusaurus.io/docs/api/plugins/@docusaurus/plugin-content-blog">blog plugin</a>.</p><p>Simply add Markdown files (or folders) to the <code>blog</code> directory.</p><p>Regular blog authors can be added to <code>authors.yml</code>.</p><p>The blog post date can be extracted from filenames, such as:</p><ul><li><code>2019-05-30-welcome.md</code></li><li><code>2019-05-30-welcome/index.md</code></li></ul><p>A blog post folder can be convenient to co-locate blog post images:</p><p><img src="./docusaurus-plushie-banner.jpeg" alt="Docusaurus Plushie"/></p><p>The blog supports tags as well!</p><p><strong>And if you don&#x27;t want a blog</strong>: just delete this directory, and use <code>blog: false</code> in your Docusaurus config.</p>]]></content>
         <author>
-            <name>Sébastien Lorber</name>
-            <uri>https://sebastienlorber.com</uri>
-        </author>
-        <author>
-            <name>Yangshun Tay</name>
-            <uri>https://github.com/yangshun</uri>
-        </author>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[MDX Blog Post]]></title>
-        <id>mdx-blog-post</id>
-        <link href="https://rettersoft.github.io/blog/mdx-blog-post"/>
-        <updated>2021-08-01T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[Blog posts support Docusaurus Markdown features, such as MDX.]]></summary>
-        <content type="html"><![CDATA[<p>Blog posts support <a href="https://docusaurus.io/docs/markdown-features">Docusaurus Markdown features</a>, such as <a href="https://mdxjs.com/">MDX</a>.</p><p>:::tip</p><p>Use the power of React to create interactive blog posts.</p><pre><code class="language-js">&lt;button onClick={() =&gt; alert(&#x27;button clicked!&#x27;)}&gt;Click me!&lt;/button&gt;
-</code></pre><button>Click me!</button><p>:::</p>]]></content>
-        <author>
-            <name>Sébastien Lorber</name>
-            <uri>https://sebastienlorber.com</uri>
-        </author>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[First Blog Post]]></title>
-        <id>first-blog-post</id>
-        <link href="https://rettersoft.github.io/blog/first-blog-post"/>
-        <updated>2019-05-28T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum dignissim ultricies. Fusce rhoncus ipsum tempor eros aliquam consequat. Lorem ipsum dolor sit amet]]></summary>
-        <content type="html"><![CDATA[<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum dignissim ultricies. Fusce rhoncus ipsum tempor eros aliquam consequat. Lorem ipsum dolor sit amet</p>]]></content>
-        <author>
-            <name>Gao Wei</name>
-            <uri>https://github.com/wgao19</uri>
+            <name>Baran Baygan</name>
+            <uri>https://github.com/baranbaygan</uri>
         </author>
     </entry>
 </feed>

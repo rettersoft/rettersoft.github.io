@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkrbs_dev_docs=self.webpackChunkrbs_dev_docs||[]).push([[90],{6044:function(e){e.exports=JSON.parse('{"allTagsPath":"/blog/tags","slug":"/blog/tags/object-oriented-cloud","name":"object oriented cloud","count":4,"permalink":"/blog/tags/object-oriented-cloud"}')}}]);
