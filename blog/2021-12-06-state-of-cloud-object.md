@@ -1,6 +1,6 @@
 ---
 slug: state-of-cloud-object
-title: State of a cloud object
+title: State of a CloudObject
 authors: baran
 tags: [rtbs, state, todo app, object oriented cloud, cloud]
 ---
