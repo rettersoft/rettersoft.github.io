@@ -40,8 +40,7 @@ Sorting— Any method request to an object is queued and handled in FIFO manner.
 
 The following template.yml defines two methods in a class.
 
-'''yml
-
+```yml
 preAuthorizer: index.preAuthorizer
 authorizer: index.authorizer
 init: index.init
@@ -71,7 +70,7 @@ methods:
             direction:
                 - spendMoney
                 - insufficientFunds
-'''
+```
 
 This class definition template yml file creates the following diagram.
 
@@ -79,15 +78,15 @@ This class definition template yml file creates the following diagram.
 
 We have two methods we can call from our clients. To call this object first you need to create an RBS SDK instance.
 
-'''typescript
+```typescript
 this.rbs = RBS.getInstance({
   projectId: '{RBS_PROJECT_ID}'
 })
-'''
+```
 
 Let’s get an instance of our WalletB class. We also immediately start listening to its state updates.
 
-'''typescipt
+```typescipt
 const co = await this.rbs?.getCloudObject({
   classId: 'WalletB'
 })
@@ -95,17 +94,17 @@ const co = await this.rbs?.getCloudObject({
 co.state.public?.subscribe((publicState: any) => {
   console.log('publicState', publicState)
 })
-'''
+```
 
 Now it’s time to call some methods on our wallet instance
 
-'''typescript
+```typescript
 await co.call({
   method: 'spendMoney',
   payload: {
     amount: 10
   }
 })
-'''
+```
 
 That’s it for now. We will dive deeper into cloud objects mechanics in upcoming articles.
