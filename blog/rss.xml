@@ -66,6 +66,26 @@ co.state.public?.subscribe((publicState: any) =&gt; {
 </code></pre><p>That’s it for now. We will dive deeper into cloud object mechanics in upcoming articles.</p>]]></content:encoded>
         </item>
         <item>
+            <title><![CDATA[State of a cloud object]]></title>
+            <link>https://rettersoft.github.io/blog/state-of-cloud-object</link>
+            <guid>state-of-cloud-object</guid>
+            <pubDate>Mon, 06 Dec 2021 00:00:00 GMT</pubDate>
+            <description><![CDATA[Every object has a state. This state is stored within the object. Best practice is to keep the size of this state relatively small. For instance if you are developing a chat application you might hold last 100 messages in state but store the rest in a sortedSet of this object. However we will only talk about state in this article.]]></description>
+            <content:encoded><![CDATA[<p>Every object has a state. This state is stored within the object. Best practice is to keep the size of this state relatively small. For instance if you are developing a chat application you might hold last 100 messages in state but store the rest in a sortedSet of this object. However we will only talk about state in this article.
+State object gets streamed to client sdk’s in real time.
+State consists of four parts:</p><pre><code class="language-json">{
+  &quot;public&quot;: {},
+  &quot;private&quot;: {},
+  &quot;user&quot;: {
+    &quot;userId1&quot;: { }
+  },
+  &quot;role&quot;: {
+    &quot;roleName1&quot;: { }
+  }
+}
+</code></pre>]]></content:encoded>
+        </item>
+        <item>
             <title><![CDATA[Todo App with CloudObjects — Part 1/3]]></title>
             <link>https://rettersoft.github.io/blog/todo-app-1-3</link>
             <guid>todo-app-1-3</guid>
