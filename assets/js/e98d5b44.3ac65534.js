@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkrbs_dev_docs=self.webpackChunkrbs_dev_docs||[]).push([[7960],{5502:function(s){s.exports=JSON.parse('{"allTagsPath":"/blog/tags","slug":"/blog/tags/serverless","name":"Serverless","count":1,"permalink":"/blog/tags/serverless"}')}}]);
