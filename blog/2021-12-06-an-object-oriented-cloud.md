@@ -1,6 +1,6 @@
 ---
 slug: an-object-oriented-cloud
-title: An object oriented cloud
+title: rtbs.io - An object oriented cloud
 authors: baran
 tags: [rtbs, object oriented cloud, cloud]
 ---
@@ -8,6 +8,8 @@ tags: [rtbs, object oriented cloud, cloud]
 Cloud providers like AWS, GCP, Azure are next generation machines for writing programs to. Instead of writing containerized apps you can write serverless apps for these new big super computers. 
 
 However they allow you write stateless functions only. Data and functions are separated like in the early days of computing. rtbs.io is an object oriented approach to serverless cloud.
+
+![rtbs screenshot](http://s.rtbs.io/img/1*Nz9RJzQD_s1dN7d66n6Zsw.png)
 
 <!--truncate-->
 
@@ -71,3 +73,40 @@ methods:
 
 
 ```
+
+This class definition template yml file creates the following diagram.
+
+![rtbs screenshot](http://s.rtbs.io/img/1*Nz9RJzQD_s1dN7d66n6Zsw.png)
+
+We have two methods we can call from our clients. To call this object first you need to create an RBS SDK instance.
+
+```typescript
+this.rbs = RBS.getInstance({
+  projectId: '{RBS_PROJECT_ID}'
+})
+```
+
+Let’s get an instance of our WalletB class. We also immediately start listening to its state updates.
+
+```typescript
+const co = await this.rbs?.getCloudObject({
+  classId: 'WalletB'
+})
+
+co.state.public?.subscribe((publicState: any) => {
+  console.log('publicState', publicState)
+})
+```
+
+Now it’s time to call some methods on our wallet instance
+
+```typescript
+await co.call({
+  method: 'spendMoney',
+  payload: {
+    amount: 10
+  }
+})
+```
+
+That’s it for now. We will dive deeper into cloud object mechanics in upcoming articles.
