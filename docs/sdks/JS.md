@@ -2,191 +2,217 @@
 sidebar_position: 1
 ---
 
-# About
+# RBS-SDK
 
-A micro service architecture relies on services to do stuff.
-But most of the time there is an orchestration layer.
-You can use RBS Process Manager to orchestrate other micro services.
+## Initialization
 
-However RBS Process Manager can also be used to create web services, or action handlers for clients.
-Without the need of any microservice RBS Process Manager can be used to create a standalone process.
-It can use Codb as its data store.
+Firstly `rbs-sdk` should be installed with a package manager.
 
-So you can use RBS processes in following ways:
+```
+npm install @rettersoft/rbs-sdk
+or
+yarn add @rettersoft/rbs-sdk
+```
 
-- Orchestrate other micro services
-- Create a micro service using processes
-- Combine both
+Clients should initialize with project id. Instances with same project id always be cached.
 
-## Anatomy of A Process
+```ts
+const rbs = RBS.getInstance({
+    projectId: '{PROJECT_ID}',
+})
+```
 
-- A process must contain at least one step and each step must have a unique ID.
-- A process can start from a certain step. You can set it via boolean **first** parameter. Otherwise it starts from first-defined step.
-- A process has an internal storage unit called **state** which you can write to and read from it through steps.
-- A process has also a user-based storage called **userState**.
-While *state* is globally available in a single execution, users access their data in *userState* by a valid token.
-- In a process, a step cannot call itself.
+**PROJECT_ID**: Unique id of a project created in RBS Developer Console
 
-## API
+## Actions
 
-For more information about Process Manager API please visit documentation section on developer console.
+Any service action can be sent via `send` method.
+
+```ts
+let result = await rbs.send({
+    action: 'rbs.someservice.request.SOME_ACTION',
+    data: {
+        key: '{value}',
+    },
+})
+```
+
+## Authentication
+
+RBS uses custom token to authenticate. This custom tokens can be given by an action or a cloud object.
+
+```ts
+await rbs.authenticateWithCustomToken('{CUSTOM_TOKEN}')
+```
+
+Authentication statuses can be listened. SDK will fire an event that clients can be subscribe on status change.
+
+```ts
+rbs.authStatus.subscribe((event: RBSAuthChangedEvent) => {
+    //
+})
+```
+
+Event gives information about current auth status. Clients can check the `authStatus` to determine if they need to show login/register pages or not.
+
+```ts
+interface RBSAuthChangedEvent {
+    authStatus: RBSAuthStatus
+    identity?: string
+    uid?: string
+    message?: string
+}
+
+enum RBSAuthStatus {
+    SIGNED_IN = 'SIGNED_IN',
+    SIGNED_IN_ANONYM = 'SIGNED_IN_ANONYM',
+    SIGNED_OUT = 'SIGNED_OUT',
+    AUTH_FAILED = 'AUTH_FAILED',
+}
+```
+
+## Cloud Objects
+
+SDK will allow to use RBS Cloud Objects. Clients can subscribe realtime state changes, trigger cloud methods, ...
+
+Firstly an cloud object must be initilize with `classId`. Additional config options can be seen in interface below.
+
+```ts
+const cloudObject = await rbs.getCloudObject(config: RBSCloudObjectData)
+
+interface RBSCloudObjectData {
+    classId: string
+    key?: {
+        name: string
+        value: string
+    }
+    instanceId?: string
+    method?: string
+    headers?: {
+        [key: string]: string
+    }
+    querystring?: {
+        [key: string]: string
+    }
+    payload?: {
+        [key: string]: any
+    }
+    httpMethod?: 'get' | 'delete' | 'post' | 'put'
+}
+```
+
+### State Subscription
+Clients can be subscribe to realtime state (public, user and role states) changes. On first subscription, it gives current state.
+
+```ts
+cloudObject.state.public.subscribe((state: {[key: string]: any}) => {
+    // 
+})
+
+cloudObject.state.user.subscribe((state: {[key: string]: any}) => {
+    // 
+})
+
+cloudObject.state.role.subscribe((state: {[key: string]: any}) => {
+    // 
+})
+```
+
+### Method Calls
+Any cloud method can be called via sdk. `method` parameter must be specified. Other parameters can be seen in interface below.
+```ts
+const response = await cloudObject.call(params: RBSCloudObjectCallData)
+
+interface RBSCloudObjectCallData {
+    method: string
+    headers?: {
+        [key: string]: string
+    }
+    querystring?: {
+        [key: string]: string
+    }
+    payload?: {
+        [key: string]: any
+    }
+    httpMethod?: 'get' | 'delete' | 'post' | 'put'
+}
+```
+
+Call method will return a response with `RBSCallResponse` type includes `data`, `status` and `headers`.
+
+### Getting State
+Clients also access state via method call.
+```ts
+const response = await cloudObject.getState(params: RBSCloudObjectCallData)
+
+interface RBSCloudObjectCallData {
+    method: string
+    headers?: {
+        [key: string]: string
+    }
+    querystring?: {
+        [key: string]: string
+    }
+    payload?: {
+        [key: string]: any
+    }
+    httpMethod?: 'get' | 'delete' | 'post' | 'put'
+}
+```
+
+
+Get stae method will return a response with `RBSCallResponse` type includes `data<RBSCloudObjectState>`, `status` and `headers`.
+
+### Available Methods
+Cloud objects available methods can be accessed on `methods` array/
+```ts
+const methods = cloudObject.methods: RBSCloudObjectMethod[]
+
+interface RBSCloudObjectMethod {
+    tag?: string
+    name: string
+    sync?: boolean
+    readonly?: boolean
+}
+```
+
+## How It Works
 
 ### Actions
+All requests flow through a pipe and token's expire dates will be checked before each request. If the accessToken has expired, it will be renewed with refreshToken. In the first request, if there is no pre-assigned accessToken, the token is assigned anonymously.
 
-You can interact with Process Manager API by calling one of the following actions.
+### Cloud Objects
+When a cloud object instance created, first of all we need an `instanceId`. We can fetch it and its methods with `INSTANCE` request. If client specified the `instanceId` or `key` we need to send it too. Key should be string as `name!value`.  In the response we'll get `instanceId`, `newInstance` and `methods`. Returned methods assigned to instance and can be accessed by client.
 
-#### rbs.process.request.LIST
+Example URL:
+```
+instanceId: https://{projectId}.test-api.rtbs.io/INSTANCE/{class}/{instanceId}
+key:        https://{projectId}.test-api.rtbs.io/INSTANCE/{class}/{name!value}
+```
+instanceId can be omitted.
 
-Returns list of available processes in your project.
-There is no parameter to filter processes yet!
 
-#### rbs.process.request.EXECUTIONS
+After getting `instanceId`, we set firebase listeners for public,user and role states. Clients should subscribe to this listeners via state on the object. eg. `object.state.public.subscribe`. Full example can be seen above.
 
-Returns list of recent executions of a process.
-
-```typescript
-interface {
-    processId: string
-}
+Firebase document paths:
+```
+/projects/{projectId}/classes/{classId}/instances/{instanceId}
+/projects/{projectId}/classes/{classId}/instances/{instanceId}/roleState/{identity}
+/projects/{projectId}/classes/{classId}/instances/{instanceId}/userState/{userId}
 ```
 
-#### rbs.process.request.START
+Clients also call to methods: `call` and `getState`. Each method is a different request to its own url. 
 
-Starts a new execution in normal mode.
-If you don't send executionId, a sortable unique value will be assigned automatically.
-
-```typescript
-interface {
-    processId: string
-    executionId?: string
-    payload: { [key: string]: any }
-}
+Example URLS:
+```
+https://{projectId}.test-api.rtbs.io/CALL/{classId}/{method}/{instanceId}
+https://{projectId}.test-api.rtbs.io/STATE/{classId}/{instanceId}
 ```
 
-#### rbs.process.request.START_EXPRESS
+> Each api request should called with `_token` query string parameter. We use action pipes to handle authentication. Client can send different parameters like `headers`, `querystring`, `httpMethod` and `payload`. These should be inclued the request.
 
-Starts a new execution in express mode.
-If you want to start an execution and retrieve the final output, please use express mode.
-If you want it to be cached for awhile you should call *rbs.process.get.START_EXPRESS* instead.
+`httpMethod` indicates which method will be used on api call
+`headers` and `querystring` self explanatory
+`payload` should be sent as a request body.
 
-```typescript
-interface {
-    processId: string
-    executionId?: string
-    payload: { [key: string]: any }
-}
-```
-
-#### rbs.process.request.UPSERT
-
-Updates an existing process or creates a new one if *processId* is not in use.
-
-```typescript
-interface  {
-    processId: string
-    data: any
-    roles?: string[]
-    state?: object
-}
-```
-
-#### rbs.process.request.ADD_EVENT
-
-Adds a new trigger event to a process.
-When a trigger event fired, a new execution starts automatically.
-To accomplish that properly, you should add the event also into receives part of Process Manager's role.
-
-```typescript
-interface  {
-    processId: string
-    event: string
-}
-```
-
-#### rbs.process.request.REMOVE_EVENT
-
-Removes a trigger event from a process.
-
-```typescript
-interface  {
-    processId: string
-    event: string
-}
-```
-
-#### rbs.process.request.EVENTS
-
-Returns a list of available trigger events of a process.
-
-```typescript
-interface  {
-    processId: string
-}
-```
-
-#### rbs.process.request.GET_EXECUTION
-
-Returns details of an execution and steps the execution passed through.
-
-```typescript
-interface {
-    processId: string
-    executionId: string,
-}
-```
-
-#### rbs.process.request.STOP
-
-Returns inputs and outputs of a single step in execution of a process.
-
-```typescript
-interface {
-    processId: string
-    executionId: string,
-}
-```
-
-## FAQ
-
-> What is a process?
-
-A process is a collection of steps each aiming to accomplish a small part of a business logic.
-
-> What is the advantage of a process?
-
-A process is the customization unit of a project. We recommend writing a process for each business function. For example creating an order or adding items to cart can be handled by processes. By using processes for these tasks you can easily customize workflows in the future. Instead of writing native code and implementing these tasks in microservices we recommend using processes.
-
-> Is it possible to run multiple executions of a process?
-
-You can start as many executions as you need, unless you reach project-based rate limits on the middleware.
-When you hit the rate limits, you should wait for awhile before starting more processes.
-
-There is also a soft limit on maximum step count which is 999 by default.
-This can be updated to 9999.
-
-> Is it possible to run multiple steps at the same time in a process?
-
-Short answer is, no! It is not possible to run multiple steps at the same time in a single execution.
-
-It is also not possible multiple interactions with a single execution of a process.
-A process can respond to a single incoming request and proceeds to the next step accordingly.
-That makes multiple interactions impossible on a single step.
-
-> How can I start a process?
-
-There are 2 ways of starting a process: normal (*rbs.process.request.START*) and express (*rbs.process.request.START_EXPRESS*) mode.
-In normal mode, Process Manager returns details of the newly started execution.
-If you want to track the progress of that execution, you should call *rbs.process.request.GET_EXECUTION* action.
-In express mode, Process Manager executes all possible steps and responds with the result.
-Express mode doesn't support asynchronous operations.
-It's not recommended to start a process in express mode if it takes longer than 30 seconds to complete.
-
-Express mode also has a cache (*rbs.process.get.START_EXPRESS*) feature.
-
-> Where is the documentation of a process?
-
-Processes are by their nature documented because they are composed of UI elements. They are created by a drag and drop editor. Even non developers can understand how a process works.
-
-> Is there any way to analyze processes?
-
-You can mine processes in the process mining screen. Process mining gives you insight on what routes are being executed most. It also gives you time based stats on steps.
+Client should access `instanceId`, `state`, `call`, `getState`, `isNewInstance` and `methods` props on cloud object instance. With the same `classId` and `instanceId` instances are cached. Caches invalidated after a status change.
