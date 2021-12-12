@@ -6,14 +6,14 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: "Retter Mobile",
-  tagline: "Beautiful Apps",
+  title: "rtbs.io",
+  tagline: "Object Oriented Cloud",
   url: "https://rettersoft.github.io",
   baseUrl: "/",
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
   favicon: "img/favicon.ico",
-  organizationName: "rettersoft", // Usually your GitHub org/user name.
+  organizationName: "rtbs", // Usually your GitHub org/user name.
   projectName: "rettersoft.github.io", // Usually your repo name.
   deploymentBranch: "gh-pages",
   trailingSlash: true,
@@ -44,10 +44,10 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
-        title: "Retter Mobile",
+        title: "",
         logo: {
           alt: "Logo alternative",
-          src: "img/logo.svg",
+          src: "/img/rtbs_logo.svg",
         },
         items: [
           {
