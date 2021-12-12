@@ -35,6 +35,9 @@ export default function Home(): JSX.Element {
       <HomepageHeader />
       <main>
         <HomepageFeatures />
+        <script>
+          window.location = '/docs/intro/'
+        </script>
       </main>
     </Layout>
   );

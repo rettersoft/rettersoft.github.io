@@ -46,8 +46,9 @@ const config = {
       navbar: {
         title: "",
         logo: {
-          alt: "Logo alternative",
+          alt: "rtbs.io",
           src: "/img/rtbs_logo.svg",
+          href: "/docs/intro/"
         },
         items: [
           {
