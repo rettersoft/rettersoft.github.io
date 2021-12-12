@@ -13,7 +13,7 @@ const config = {
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
   favicon: "img/favicon.ico",
-  organizationName: "rtbs", // Usually your GitHub org/user name.
+  organizationName: "rettersoft", // Usually your GitHub org/user name.
   projectName: "rettersoft.github.io", // Usually your repo name.
   deploymentBranch: "gh-pages",
   trailingSlash: true,
