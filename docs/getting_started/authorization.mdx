@@ -113,7 +113,9 @@ Below there is an authorizer checking the state if this method can be called by 
 
 ```typescript
 export async function authorizer(data: Data): Promise<Response> {
-    if(data.method.name === "playHand" && data.state.private.currentPlayerId !== data.method.context.userId) return { statusCode: 403 }
+    if(data.method.name === "playHand" && 
+        data.state.private.currentPlayerId !== data.method.context.userId) 
+        return { statusCode: 403 }
     return { statusCode: 200 }
 }
 ```
