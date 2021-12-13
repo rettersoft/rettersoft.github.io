@@ -58,9 +58,9 @@ const config = {
             label: "Docs",
           },
           {
-            to: "/docs/guides/intro",
+            to: "/docs/getting_started/intro",
             position: "left",
-            label: "Guides",
+            label: "Getting Started",
           },
           { to: "/blog", label: "Blog", position: "left" },
           {

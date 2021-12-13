@@ -1,0 +1,76 @@
+---
+sidebar_position: 3
+---
+
+# Methods
+
+In your class template you can add methods to your class.
+
+Each step can have a handle method. Let's define sayHello handler in our index.ts.
+
+```yaml
+preAuthorizer: index.preAuthorizer
+init: index.init
+getState: index.getState
+
+methods:
+
+    - method: sayHello
+      tag: test
+      sync: true
+      steps:
+          - id: default
+            handler: index.sayHello
+```
+
+### Steps
+
+Each method can have multiple steps. You can define a different handler function for each step. Steps are optional. You can define a method with one step only like the one above. However if you like you can define a method like below:
+
+```yaml
+preAuthorizer: auth.preAuthorizer
+init: index.init
+getState: index.getState
+dependencies: ['user']
+methods:
+    - method: signup
+      sync: true
+      steps:
+          - id: lookupUser
+            handler: auth.lookupUser
+          - id: userAlreadyExists
+          - id: createUser
+            handler: auth.createUser
+          - id: generateToken
+            handler: auth.generateToken
+          - id: sendEmailToCallCenter
+            handler: auth.sendEmailToCallCenter
+          - id: invalidData
+      flow:
+          - direction:
+            - lookupUser
+            - createUser
+          - direction:
+            - createUser
+            - sendEmailToCallCenter
+          - direction:
+            - sendEmailToCallCenter
+            - generateToken
+          - id: goToUserAlreadyExists
+            direction:
+            - lookupUser
+            - userAlreadyExists
+          - id: goToInvalidData
+            direction:
+            - createUser
+            - invalidData
+```
+
+This definition creates following method:
+
+![Methods](/img/method_with_steps.png)
+
+You might want to add steps for:
+
+- reusability: You can re-use some handler methods
+- visualization: Even non developers can look at your method diagram and understand how it works.

@@ -2,8 +2,10 @@
 sidebar_position: 0
 ---
 
-# General
+# Introduction
 
-## Cloud Objects docs will be here
+## What is it?
+
+rtbs.io is a serverless platform where you can create classes as basic building blocks. Instead of writing functions you create classes which have functions defined in them.
 
 Let's discover **Cloud Objects** in less than __5__ minutes.
