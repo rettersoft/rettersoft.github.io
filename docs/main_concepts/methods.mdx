@@ -75,6 +75,54 @@ You might want to add steps for:
 - reusability: You can re-use some handler methods
 - visualization: Even non developers can look at your method diagram and understand how it works. Also previous calls are logged in the system and you can visualize the flow of a method in UI.
 
+### Flow control
+
+Let's consider we have a method with multiple steps.
+
+![Methods](/img/method_with_steps2.png)
+
+Below is our class definition template file:
+
+```yaml
+preAuthorizer: index.preAuthorizer
+init: index.init
+getState: index.getState
+methods:
+
+    - method: methodWithSteps
+      tag: test
+      sync: true
+      steps:
+          - id: step1
+            handler: step1
+          - id: step2
+          - id: step3
+      flow:
+          - direction:
+              - step1
+              - step2
+          - id: gotoStep3
+            direction:
+              - step1
+              - step3
+```
+
+We can either go to step3 or step2 from step1. Let's see how we do that:
+
+```typescript
+export async function step1(data: Data): Promise<StepResponse> {
+    
+    // You can check some state here and conditionally set nextFlowId
+    if(data.state.private.someField === true) {
+        data.nextFlowId = "gotoStep3"    
+    }
+    
+    return data
+}
+```
+
+If you don't specify a __nextFlowId__, first direction will be selected. Which is step2 in this template.
+
 ## Concurrency & FIFO
 
 One of the most important features of class methods is that by default concurrency is 1. Calls made to your method gets ordered and executed one by one and exactly once guaranteed. This is a very important and crucial part of development with cloud objects.
