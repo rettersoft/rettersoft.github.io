@@ -57,11 +57,7 @@ const config = {
             position: "left",
             label: "Docs",
           },
-          {
-            to: "/docs/getting_started/intro",
-            position: "left",
-            label: "Getting Started",
-          },
+          
           { to: "/blog", label: "Blog", position: "left" },
           {
             href: "https://github.com/rettersoft",
