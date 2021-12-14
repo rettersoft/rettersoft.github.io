@@ -215,4 +215,4 @@ https://{projectId}.test-api.rtbs.io/STATE/{classId}/{instanceId}
 `headers` and `querystring` self explanatory
 `payload` should be sent as a request body.
 
-Client should access `instanceId`, `state`, `call`, `getState`, `isNewInstance` and `methods` props on cloud object instance. With the same `classId` and `instanceId` instances are cached. Caches invalidated after a status change.
+Client should access `instanceId`, `state`, `call`, `getState`, `isNewInstance` and `methods` props on cloud object instance. With the same `classId` and `instanceId` instances are cached. Caches invalidated after an auth status change.
