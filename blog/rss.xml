@@ -12,8 +12,8 @@
             <link>https://rettersoft.github.io/blog/otp-signin-with-cloud-objects</link>
             <guid>otp-signin-with-cloud-objects</guid>
             <pubDate>Tue, 14 Dec 2021 00:00:00 GMT</pubDate>
-            <description><![CDATA[We need to methods to implement OTP signin with cloudobjects. These methods are sendOTP, validateOTP and signUp. We can use User class to add this methods.]]></description>
-            <content:encoded><![CDATA[<p>We need to methods to implement OTP signin with cloudobjects. These methods are <code>sendOTP</code>, <code>validateOTP</code> and <code>signUp</code>. We can use <code>User</code> class to add this methods.</p><p>Firstly we customize <code>preAuthorizer</code> to allow method calls from anonym users. Let&#x27;s create <code>auth.ts</code> file. We&#x27;ll use this file for otp related codes.</p><pre><code class="language-ts">export async function preAuthorizer(data: Data): Promise&lt;Response&gt; {
+            <description><![CDATA[We need to several methods to implement OTP signin with cloudobjects. These methods are sendOTP, validateOTP and signUp. We'll use User class to add this methods. In this part of the tutorial we'll implement only sendOTP and validateOTP methods.]]></description>
+            <content:encoded><![CDATA[<p>We need to several methods to implement OTP signin with cloudobjects. These methods are <code>sendOTP</code>, <code>validateOTP</code> and <code>signUp</code>. We&#x27;ll use <code>User</code> class to add this methods. In this part of the tutorial we&#x27;ll implement only <code>sendOTP</code> and <code>validateOTP</code> methods.</p><p>Firstly we customize <code>preAuthorizer</code> to allow method calls from anonymous users. Let&#x27;s create <code>auth.ts</code> file. We&#x27;ll use this file for otp related codes.</p><pre><code class="language-ts">export async function preAuthorizer(data: Data): Promise&lt;Response&gt; {
     if (data.method.context.identity === &#x27;Owner&#x27;) return { statusCode: 200 }
 
     // OTP methods can be called bu anyone
