@@ -32,8 +32,9 @@
 }
 </code></pre><p>Now, we can add preAuthorizer to top of <code>template.yml</code>.</p><pre><code class="language-yml">preAuthorizer: auth.preAuthorizer
 # ...rest of file
-</code></pre><h2>Methods</h2><p>We use CloudObjectsOperator heavily in this file. So, let&#x27;s add this to top of <code>auth.ts</code>.</p><pre><code class="language-ts">import CloudObjectsOperator from &#x27;./CloudObjects&#x27;
-const co = new CloudObjectsOperator()
+</code></pre><h2>Methods</h2><p>We use SDK and types heavily in this file. So, let&#x27;s add this to top of <code>auth.ts</code>.</p><pre><code class="language-ts">import SDK, { Data, InitResponse, Response, StepResponse } from &#x27;./CloudObjects&#x27;
+
+const sdk = new SDK()
 </code></pre><p>Let&#x27;s update our template to define methods.</p><pre><code class="language-yml">...
 methods:
     - method: sendOTP
@@ -84,7 +85,7 @@ export async function sendOTP(data: Data): Promise&lt;StepResponse&gt; {
     const { phoneNumber } = data.method.request
 
     // use rbs actions to send otp sms
-    const { errors } = await co.rbsAction({
+    const { errors } = await sdk.rbsAction({
         name: &#x27;rbs.sms.request.SEND&#x27;,
         data: { type: &#x27;otp&#x27;, phoneNumber, message: `Doğrulama kodunuz: ${otp}` },
     })
@@ -118,7 +119,7 @@ export async function validateOTP(data: Data): Promise&lt;StepResponse&gt; {
 
 // goToValidOTP flow
 export async function lookupUser(data: Data): Promise&lt;StepResponse&gt; {
-    const { success: userFound } = await co.getLookUpKey({
+    const { success: userFound } = await sdk.getLookUpKey({
         key: {
             name: &#x27;phoneNumber&#x27;,
             value: data.method.request.phoneNumber,
@@ -136,7 +137,7 @@ export async function lookupUser(data: Data): Promise&lt;StepResponse&gt; {
 
 // goToUserExists flow
 export async function generateToken(data: Data): Promise&lt;StepResponse&gt; {
-    const { response } = await co.rbsAction({
+    const { response } = await sdk.rbsAction({
         name: &#x27;rbs.core.request.GENERATE_CUSTOM_TOKEN&#x27;,
         data: { userId: data.method.context.userId, roleNames: [&#x27;enduser&#x27;] },
     })
