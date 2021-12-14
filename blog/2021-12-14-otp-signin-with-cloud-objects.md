@@ -5,9 +5,9 @@ authors: semihayhan
 tags: [Serverless, Rtbs, Rbs, Cloudobjects]
 ---
 
-We need to methods to implement OTP signin with cloudobjects. These methods are `sendOTP`, `validateOTP` and `signUp`. We can use `User` class to add this methods.
+We need to several methods to implement OTP signin with cloudobjects. These methods are `sendOTP`, `validateOTP` and `signUp`. We'll use `User` class to add this methods. In this part of the tutorial we'll implement only `sendOTP` and `validateOTP` methods.
 
-Firstly we customize `preAuthorizer` to allow method calls from anonym users. Let's create `auth.ts` file. We'll use this file for otp related codes.
+Firstly we customize `preAuthorizer` to allow method calls from anonymous users. Let's create `auth.ts` file. We'll use this file for otp related codes.
 
 ```ts
 export async function preAuthorizer(data: Data): Promise<Response> {
