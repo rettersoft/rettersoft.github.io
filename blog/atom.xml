@@ -2,11 +2,162 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://rettersoft.github.io/blog</id>
     <title>rtbs.io Blog</title>
-    <updated>2021-12-06T00:00:00.000Z</updated>
+    <updated>2021-12-14T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://rettersoft.github.io/blog"/>
     <subtitle>rtbs.io Blog</subtitle>
     <icon>https://rettersoft.github.io/img/favicon.ico</icon>
+    <entry>
+        <title type="html"><![CDATA[OTP Sign In With Cloud Objects - Part 1]]></title>
+        <id>otp-signin-with-cloud-objects</id>
+        <link href="https://rettersoft.github.io/blog/otp-signin-with-cloud-objects"/>
+        <updated>2021-12-14T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[We need to methods to implement OTP signin with cloudobjects. These methods are sendOTP, validateOTP and signUp. We can use User class to add this methods.]]></summary>
+        <content type="html"><![CDATA[<p>We need to methods to implement OTP signin with cloudobjects. These methods are <code>sendOTP</code>, <code>validateOTP</code> and <code>signUp</code>. We can use <code>User</code> class to add this methods.</p><p>Firstly we customize <code>preAuthorizer</code> to allow method calls from anonym users. Let&#x27;s create <code>auth.ts</code> file. We&#x27;ll use this file for otp related codes.</p><pre><code class="language-ts">export async function preAuthorizer(data: Data): Promise&lt;Response&gt; {
+    if (data.method.context.identity === &#x27;Owner&#x27;) return { statusCode: 200 }
+
+    // OTP methods can be called bu anyone
+    if ([&#x27;sendOTP&#x27;, &#x27;validateOTP&#x27;].includes(data.method.name)) {
+        return { statusCode: 200 }
+    }
+
+    // User class specific control, don&#x27;t allow users to use other&#x27;s instance ids
+    if (data.method.context.userId !== data.context.instanceId || data.method.context.identity !== &#x27;enduser&#x27;) {
+        return {
+            statusCode: 403,
+        }
+    }
+
+    return { statusCode: 200 }
+}
+</code></pre><p>Now, we can add preAuthorizer to top of <code>template.yml</code>.</p><pre><code class="language-yml">preAuthorizer: auth.preAuthorizer
+# ...rest of file
+</code></pre><h2>Methods</h2><p>We use CloudObjectsOperator heavily in this file. So, let&#x27;s add this to top of <code>auth.ts</code>.</p><pre><code class="language-ts">import CloudObjectsOperator from &#x27;./CloudObjects&#x27;
+const co = new CloudObjectsOperator()
+</code></pre><p>Let&#x27;s update our template to define methods.</p><pre><code class="language-yml">...
+methods:
+    - method: sendOTP
+      sync: true
+      steps:
+        - id: sendOTP
+          handler: auth.sendOTP
+    - method: validateOTP
+      sync: true
+      steps:
+        - id: validateOTP
+          handler: auth.validateOTP
+        - id: lookupUser
+          handler: auth.lookupUser
+        - id: generateToken
+          handler: auth.generateToken
+        # we&#x27;ll set response from other steps so we don&#x27;t need handlers for this steps, just for flow
+        - id: invalidOTP
+        - id: notRegistered
+      flow:
+        - id: goToInvalidOTP
+          direction:
+            - validateOTP
+            - invalidOTP
+        - id: goToValidOTP
+          direction:
+            - validateOTP
+            - lookupUser
+        - id: goToUserExists
+          direction:
+            - lookupUser
+            - generateToken
+        - id: goToUserNotExists
+          direction:
+            - lookupUser
+            - notRegistered
+...
+</code></pre><p>Final template should look like this.
+<img src="./assets/otp-template-1.png" alt="Final Teamplte"/></p><h3>- sendOTP</h3><p>In this method, we need to create a otp code and send it to user&#x27;s phone.</p><pre><code class="language-ts">function generateRandomOTP(): string {
+    const otp = Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000
+    return otp.toString()
+}
+
+export async function sendOTP(data: Data): Promise&lt;StepResponse&gt; {
+    const otp = generateRandomOTP() // random 4 digit number between 1000-9999
+
+    // get user&#x27;s phone number from client
+    const { phoneNumber } = data.method.request
+
+    // use rbs actions to send otp sms
+    const { errors } = await co.rbsAction({
+        name: &#x27;rbs.sms.request.SEND&#x27;,
+        data: { type: &#x27;otp&#x27;, phoneNumber, message: `Doğrulama kodunuz: ${otp}` },
+    })
+
+    if (errors.length === 0) {
+        // we need to store otp code to access from validateOTP method
+        data.state.private.otp = otp
+    } else {
+        data.method.response = {
+            statusCode: 500,
+            body: { errors },
+        }
+    }
+
+    return data
+}
+</code></pre><h3>- validateOTP</h3><p>After sending otp code to user&#x27;s phone, we check if user enters rigth code to signin. We can check private state for that.</p><p><code>validateOTP</code> method consist of several steps. We check if otp is valid, and we check if user registered, if so we can create custom token to signin or inform user to register.</p><pre><code class="language-ts">// first flow
+export async function validateOTP(data: Data): Promise&lt;StepResponse&gt; {
+    if (data.state.private.otp === data.method.request.otp) {
+        data.nextFlowId = &#x27;goToValidOTP&#x27;
+    } else {
+        data.nextFlowId = &#x27;goToInvalidOTP&#x27;
+        data.method.response = {
+            statusCode: 403,
+            body: { error: &#x27;invalidOTP&#x27; },
+        }
+    }
+
+    return data
+}
+
+// goToValidOTP flow
+export async function lookupUser(data: Data): Promise&lt;StepResponse&gt; {
+    const { success: userFound } = await co.getLookUpKey({
+        key: {
+            name: &#x27;phoneNumber&#x27;,
+            value: data.method.request.phoneNumber,
+        },
+    })
+
+    if (userFound) {
+        data.nextFlowId = &#x27;goToUserExists&#x27;
+    } else {
+        data.nextFlowId = &#x27;goToUserNotExists&#x27;
+    }
+
+    return data
+}
+
+// goToUserExists flow
+export async function generateToken(data: Data): Promise&lt;StepResponse&gt; {
+    const { response } = await co.rbsAction({
+        name: &#x27;rbs.core.request.GENERATE_CUSTOM_TOKEN&#x27;,
+        data: { userId: data.method.context.userId, roleNames: [&#x27;enduser&#x27;] },
+    })
+
+    data.method.response = {
+        statusCode: 200,
+        body: {
+            customToken: response.customToken,
+        },
+    }
+
+    return data
+}
+
+//
+</code></pre>]]></content>
+        <author>
+            <name>Semih Ayhan</name>
+            <uri>https://github.com/smhayhan</uri>
+        </author>
+    </entry>
     <entry>
         <title type="html"><![CDATA[CloudObject — A Simple User with Auth — Part 1/3]]></title>
         <id>cloudobject-a-simple-user-with-auth-part-1-3</id>
