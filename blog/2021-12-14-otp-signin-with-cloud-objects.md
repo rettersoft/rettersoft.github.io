@@ -38,11 +38,12 @@ preAuthorizer: auth.preAuthorizer
 
 ## Methods
 
-We use CloudObjectsOperator heavily in this file. So, let's add this to top of `auth.ts`.
+We use SDK and types heavily in this file. So, let's add this to top of `auth.ts`.
 
 ```ts
-import CloudObjectsOperator from './CloudObjects'
-const co = new CloudObjectsOperator()
+import SDK, { Data, InitResponse, Response, StepResponse } from './CloudObjects'
+
+const sdk = new SDK()
 ```
 
 Let's update our template to define methods.
@@ -106,7 +107,7 @@ export async function sendOTP(data: Data): Promise<StepResponse> {
     const { phoneNumber } = data.method.request
 
     // use rbs actions to send otp sms
-    const { errors } = await co.rbsAction({
+    const { errors } = await sdk.rbsAction({
         name: 'rbs.sms.request.SEND',
         data: { type: 'otp', phoneNumber, message: `Doğrulama kodunuz: ${otp}` },
     })
@@ -149,7 +150,7 @@ export async function validateOTP(data: Data): Promise<StepResponse> {
 
 // goToValidOTP flow
 export async function lookupUser(data: Data): Promise<StepResponse> {
-    const { success: userFound } = await co.getLookUpKey({
+    const { success: userFound } = await sdk.getLookUpKey({
         key: {
             name: 'phoneNumber',
             value: data.method.request.phoneNumber,
@@ -167,7 +168,7 @@ export async function lookupUser(data: Data): Promise<StepResponse> {
 
 // goToUserExists flow
 export async function generateToken(data: Data): Promise<StepResponse> {
-    const { response } = await co.rbsAction({
+    const { response } = await sdk.rbsAction({
         name: 'rbs.core.request.GENERATE_CUSTOM_TOKEN',
         data: { userId: data.method.context.userId, roleNames: ['enduser'] },
     })
