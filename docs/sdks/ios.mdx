@@ -103,6 +103,22 @@ rbs.getCloudObject(with: RBSCloudObjectOptions(classID: "ChatRoom", instanceID: 
 }
 ```
 
+__RBSCloudObjectOptions__
+
+```typescript
+
+public struct RBSCloudObjectOptions {
+    public var classID: String?
+    public var instanceID: String?
+    public var keyValue: (key: String, value: String)?
+    public var method: String?
+    public var headers: [String: String]?
+    public var queryString: [String: String]?
+    public var httpMethod: Moya.Method?
+    public var body: [String: Any]?
+}
+```
+
 Listen to state updates:
 
 ```typescript
@@ -128,50 +144,83 @@ self.cloudObject.state.public.subscribe { (data) in
 Let's call a method on an object:
 
 ```typescript
-self.cloudObject.call(
-   with: RBSCloudObjectOptions(method: "sayHello")
-) { (response) in
-   if let firstResponse = response.first,
-      let data = firstResponse as? Data {
-         let json = try? JSONSerialization.jsonObject(with: data, options: [])
-         print("---Method Response ->", json)
+cloudObject
+   .call(with: RBSCloudObjectOptions(method: "sayHello")) { (response:RBSCloudObjectResponse) in
+      
+   } onError: { (error:RBSCloudObjectError) in
+      
    }
-} errorFired: { (error) in
-   print("---Method Error ->", error)
+```
+
+### Response and Error structures SDK returns
+```typescript
+public struct RBSCloudObjectResponse {
+    public let statusCode: Int
+    public let headers: [String:String]?
+    public let body: Data?
+}
+public struct RBSCloudObjectError: Error {
+    public let error: RBSError
+    public let response: RBSCloudObjectResponse?
+}
+public enum RBSError : Error {
+    case TokenError,
+         cloudNotConfigured,
+         classIdRequired,
+         cloudObjectNotFound,
+         methodReturnedError,
+         parsingError
 }
 ```
 
-## Send Actions
-
-Actions are unique strings to call a service on RBS. Actions have 4 parts separated by dots like below:
-
-{COMPANY}.{SERVICE_ID}.{ACTION_TYPE}.{ACTION_NAME}
-
-Action Type can only be “event” or “request”.
-
-Some examples:
-
-- rtbs.oms.request.INSERT_ORDER
-- rtbs.oms.request.LIST_MY_ORDERS
-- rtbs.oms.event.ORDER_CREATED
-- rtbs.notification.request.SEND_SMS
-- somecompany.awesomeservice.request.DO_STUFF
-
-You can use .send method to send actions to RBS services. The list of which actions will trigger which services is listed in your RBS project configuration.
+### Example iOS Client Code with Cloud Objects
 
 ```typescript
-rbs.send(action: "rbs.someservice.request.SOME_ACTION",
-         data: [
-            "key": "value",
-         ],
-         onSuccess: { result in
-            print("Result: \(result)")
-         },
-         onError: { error in
-            print("Error Result: \(error)")
-         })
+
+// Some models
+class BaseError: Decodable {
+    var validationErrors: ValidationErrors? = nil
+}
+
+class SignInErrorResponse: BaseError {
+    var error: String? = nil
+}
+
+struct SignInResponse: Decodable {
+    let customToken: String
+}
+
+// A button tap handler
+@IBAction func btnLoginTapped(_ sender: Any) {
+   
+   guard let username = self.txtUsername.text, let password = self.txtPassword.text else { return }
+   
+   self
+      .rbs?
+      .getCloudObject(with: RBSCloudObjectOptions(classID: "User", keyValue: ("username", username)), onSuccess: { cloudObject in
+            
+            
+            cloudObject.call(with: RBSCloudObjectOptions(method: "signin", body: ["password": password])) { response in
+               // response is type of RBSCloudObjectResponse
+               // you can parse its body to your model like below:
+               if let body = response.body {
+                  let signInResponse: SignInResponse = try! JSONDecoder().decode(SignInResponse.self, from: body)
+                  print(signInResponse)
+               }
+            } onError: { error in
+               // error is type of RBSCloudObjectError
+               // you can also parse error response body to your error model like below:
+               if let response = error.response, let body = response.body {
+                  let signInErrorResponse: SignInErrorResponse = try! JSONDecoder().decode(SignInErrorResponse.self, from: body)
+                  print(signInErrorResponse)
+               }
+            }
+            
+      }, onError: { error in
+            
+            // error is type of RBSCloudObjectError
+            print(error)
+            
+      })
+}
 ```
-
-## License
-
-RBS is available under the MIT license. See the LICENSE file for more info.
