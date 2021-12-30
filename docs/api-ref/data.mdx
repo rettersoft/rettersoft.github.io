@@ -4,8 +4,17 @@ sidebar_position: 6
 
 # data
 
+Every step handler is handed a data object like below:
 
-## Data
+```typescript
+export async function sayHello(data: Data): Promise<StepResponse> {
+    return data
+}
+```
+
+Step handler can make some changes to data object and return it.
+
+Data object has following interface:
 
 ```typescript
 export interface Data extends StepResponse {
