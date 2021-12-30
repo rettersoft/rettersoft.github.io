@@ -1,0 +1,51 @@
+---
+sidebar_position: 7
+---
+
+# data.method
+
+Method object is used to read incoming request and write data to returning response. It's interface is like below:
+
+```typescript
+interface Method {
+    name: string
+    context: Context
+    state: KeyValue
+    request?: Request
+    response?: Response
+}
+```
+
+## Fields
+
+__`name: string`__
+
+Name of the method.
+
+__`context: string`__
+
+Context contains information like identities, ip addresses for this request.
+
+__`state: string`__
+
+Method state is a temporary storage which is passed from step to step. It is not stored after the method returns. You can use it to pass data between your steps but don't want to store that state in persistent state.
+
+__`request: string`__
+
+Request object contains data sent to this method.
+
+__`response: string`__ 
+
+You use response object to write data to the response of this method. Example usage:
+
+```typescript
+data.method.response = {
+    statusCode: 200,
+    headers: {
+        "content-type": "application/json"
+    },
+    body: {
+        message: "OK"
+    }
+}
+```

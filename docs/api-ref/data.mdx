@@ -1,0 +1,20 @@
+---
+sidebar_position: 6
+---
+
+# data
+
+
+## Data
+
+```typescript
+export interface Data extends StepResponse {
+    context: Context
+    env: KeyValue
+    config: Configuration
+    version: number
+    state: State
+    method: Method
+    schedule: Schedule[]
+}
+```

@@ -1,0 +1,46 @@
+---
+sidebar_position: 10
+---
+
+# data.method.response
+
+Response object can be used to return a response to the caller.
+
+```typescript
+export interface CloudObjectResponse {
+    statusCode: number
+    body?: any
+    headers?: { [key: string]: string }
+}
+```
+
+## Fields
+
+__`statusCode: string`__
+
+Returning statusCode.
+
+__`body: string`__
+
+Response body of this method.
+
+__`headers: string`__
+
+Headers sent to the client.
+
+### Example usage:
+
+```typescript
+export async function sayHello(data: Data): Promise<StepResponse> {
+    data.method.response = {
+        statusCode: 200,
+        headers: {
+            "content-type": "application/json"
+        },
+        body: {
+            message: "Hello"
+        }
+    }
+    return data
+}
+```

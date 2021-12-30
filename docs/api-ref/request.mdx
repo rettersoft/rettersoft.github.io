@@ -1,0 +1,34 @@
+---
+sidebar_position: 10
+---
+
+# data.method.request
+
+Request object contains incoming data in this method call.
+
+```typescript
+export interface Request {
+    httpMethod: string
+    body?: any
+    headers: { [key: string]: string }
+    queryStringParams: { [key: string]: string }
+}
+```
+
+## Fields
+
+__`httpMethod: string`__
+
+Http method of the call like: GET, POST, PUT etc.
+
+__`body: string`__
+
+Post body of http request.
+
+__`headers: string`__
+
+Headers sent from the client.
+
+__`queryStringParams: string`__
+
+Query strings sent in this request.
