@@ -104,10 +104,10 @@ export async function sendOTP(data: Data): Promise<StepResponse> {
     const otp = generateRandomOTP() // random 4 digit number between 1000-9999
 
     // get user's phone number from client
-    const { phoneNumber } = data.method.request
+    const { phoneNumber } = data.request
 
     // use rbs actions to send otp sms
-    const { errors } = await sdk.rbsAction({
+    const { errors } = await rdk.rbsAction({
         name: 'rbs.sms.request.SEND',
         data: { type: 'otp', phoneNumber, message: `Doğrulama kodunuz: ${otp}` },
     })
@@ -116,7 +116,7 @@ export async function sendOTP(data: Data): Promise<StepResponse> {
         // we need to store otp code to access from validateOTP method
         data.state.private.otp = otp
     } else {
-        data.method.response = {
+        data.response = {
             statusCode: 500,
             body: { errors },
         }
@@ -135,11 +135,11 @@ After sending otp code to user's phone, we check if user enters rigth code to si
 ```ts
 // first flow
 export async function validateOTP(data: Data): Promise<StepResponse> {
-    if (data.state.private.otp === data.method.request.otp) {
+    if (data.state.private.otp === data.request.otp) {
         data.nextFlowId = 'goToValidOTP'
     } else {
         data.nextFlowId = 'goToInvalidOTP'
-        data.method.response = {
+        data.response = {
             statusCode: 403,
             body: { error: 'invalidOTP' },
         }
@@ -150,10 +150,10 @@ export async function validateOTP(data: Data): Promise<StepResponse> {
 
 // goToValidOTP flow
 export async function lookupUser(data: Data): Promise<StepResponse> {
-    const { success: userFound } = await sdk.getLookUpKey({
+    const { success: userFound } = await rdk.getLookUpKey({
         key: {
             name: 'phoneNumber',
-            value: data.method.request.phoneNumber,
+            value: data.request.phoneNumber,
         },
     })
 
@@ -168,12 +168,12 @@ export async function lookupUser(data: Data): Promise<StepResponse> {
 
 // goToUserExists flow
 export async function generateToken(data: Data): Promise<StepResponse> {
-    const { response } = await sdk.rbsAction({
+    const { response } = await rdk.rbsAction({
         name: 'rbs.core.request.GENERATE_CUSTOM_TOKEN',
         data: { userId: data.method.context.userId, roleNames: ['enduser'] },
     })
 
-    data.method.response = {
+    data.response = {
         statusCode: 200,
         body: {
             customToken: response.customToken,

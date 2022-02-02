@@ -10,7 +10,7 @@ For example a __Product__ class can write its metadata to its state like this:
 
 ```typescript
 export async function update(data: Data): Promise<StepResponse> {
-    data.state.private = data.method.request.body
+    data.state.private = data.request.body
 
     return data
 }
@@ -20,9 +20,9 @@ If another object would like to read this products state then it will have to fe
 
 ```typescript
 export async function update(data: Data): Promise<StepResponse> {
-    data.state.private = data.method.request.body
+    data.state.private = data.request.body
 
-    await sdk.setGlobalMemory({
+    await rdk.setGlobalMemory({
         key: "product#" + data.context.instanceId,
         value: data.state.private
     })
@@ -37,17 +37,17 @@ Another object can easily read this product metadata from memory.
 
 export async function getProductMetadata(data: Data): Promise<StepResponse> {
 
-    let memoryResult = await sdk.getGlobalMemory({
-        key: "product#" + data.method.request.body.productId
+    let memoryResult = await rdk.getGlobalMemory({
+        key: "product#" + data.request.body.productId
     })
 
     if (memoryResult.success) {
-        data.method.response = {
+        data.response = {
             statusCode: 200,
             body: memoryResult.data
         }
     } else {
-        data.method.response = {
+        data.response = {
             statusCode: 404
         }
     }

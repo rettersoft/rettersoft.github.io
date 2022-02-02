@@ -11,7 +11,7 @@ For example think of a __User__ class. Users have user id's but they might also 
 ```typescript
 export async function updateEmail(data: Data): Promise<StepResponse> {
 
-    await sdk.setLookUpKey({
+    await rdk.setLookUpKey({
         key: { name: "email", value: "jane@mail.com" }
     })
 
@@ -24,12 +24,12 @@ Let's change it a little bit to make it look a bit more realistic. Maybe we have
 ```typescript
 export async function updateEmail(data: Data): Promise<StepResponse> {
 
-    if(data.method.request.body.code !== data.state.private.emailValidationCode) {
-        data.method.response = {statusCode: 403}
+    if(data.request.body.code !== data.state.private.emailValidationCode) {
+        data.response = {statusCode: 403}
         return data
     }
 
-    await sdk.setLookUpKey({
+    await rdk.setLookUpKey({
         key: { name: "email", value: "jane@mail.com" }
     })
 
@@ -42,14 +42,14 @@ Now let's see how to find this instance without knowing its instance id.
 ```typescript
 export async function findUserByEmail(data: Data): Promise<StepResponse> {
     
-    const lookupResult = await sdk.getLookUpKey({
+    const lookupResult = await rdk.getLookUpKey({
         key: {
             name: "email", value: "jane@mail.com"
         }
     })
 
     if(lookupResult.success) {
-        data.method.response = {
+        data.response = {
             statusCode: 200,
             body: lookupResult.data
         }

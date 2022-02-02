@@ -21,10 +21,10 @@ import CloudObjectsOperator, { Data, StepResponse } from './CloudObjects'
 const sdk = new CloudObjectsOperator()
 
 export async function lookupUser(data: Data): Promise<StepResponse> {
-    const { success:userFound } = await sdk.getLookUpKey({ key: { name: 'email', value: data.method.request.email } })
+    const { success:userFound } = await rdk.getLookUpKey({ key: { name: 'email', value: data.request.email } })
 
     if(userFound) {
-        data.method.response = {
+        data.response = {
             statusCode: 403, body: { message: "Email is taken" }
         }
         return data
@@ -57,9 +57,9 @@ We have 3 functions. Now let’s see how we create a user.
 ```typescript
 export async function createUser(data: Data): Promise<StepResponse> {
 
-    const { email, name, password } = data.method.request
+    const { email, name, password } = data.request
 
-    await sdk.setLookUpKey({
+    await rdk.setLookUpKey({
         key: {
             name: 'email',
             value: email
@@ -84,12 +84,12 @@ We first set email as a lookup value to this instance. Now let’s add another s
 ```typescript
 export async function generateToken(data: Data): Promise<StepResponse> {
 
-    const actionResponse = await sdk.rbsAction({
+    const actionResponse = await rdk.rbsAction({
         name: 'rbs.core.request.GENERATE_CUSTOM_TOKEN',
         data: { userId: data.method.context.userId, roleNames: ['enduser'] }
     })
 
-    data.method.response = {
+    data.response = {
         statusCode: 200,
         body: {
             customToken: actionResponse.response.customToken

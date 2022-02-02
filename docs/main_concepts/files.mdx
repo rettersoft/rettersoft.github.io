@@ -9,9 +9,9 @@ Classes can save files to disk.
 ```typescript
 export async function saveFile(data: Data): Promise<StepResponse> {
     
-    await sdk.setFile({
+    await rdk.setFile({
         filename: "testFile",
-        body: data.method.request.body
+        body: data.request.body
     })
 
     return data
@@ -22,16 +22,16 @@ You can fetch the file with following code:
 
 ```typescript
 export async function getFile(data: Data): Promise<StepResponse> {
-    const fileResult = await sdk.getFile({
+    const fileResult = await rdk.getFile({
         filename: "testFile",
     })
     if(fileResult.success) {
-        data.method.response = {
+        data.response = {
             statusCode: 200,
             body: fileResult.data
         }
     } else {
-        data.method.response = {
+        data.response = {
             statusCode: 400
         }
     }

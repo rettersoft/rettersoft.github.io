@@ -21,16 +21,16 @@ Now we can start writing to a sorted set like this:
 ```typescript
 export async function addChatMessage(data: Data): Promise<StepResponse> {
 
-    await sdk.addToSortedSet({
+    await rdk.addToSortedSet({
         setName: "messages",
         sortKey: Date.now().toString(),
         data: {
             "senderId": data.method.context.userId,
-            "message": data.method.request.body.message
+            "message": data.request.body.message
         }
     })
 
-    data.method.response = { statusCode: 200, body: { success: true }}
+    data.response = { statusCode: 200, body: { success: true }}
 
     return data
 }
@@ -40,12 +40,12 @@ When a new user opens this chat room she needs to be able to fetch latest messag
 ```typescript
 export async function getMessages(data: Data): Promise<StepResponse> {
 
-    let queryResult = await sdk.querySortedSet({
+    let queryResult = await rdk.querySortedSet({
         setName: "messages",
         limit: 50
     })
 
-    data.method.response = {
+    data.response = {
         statusCode: 200,
         body: {
             messages: queryResult.data

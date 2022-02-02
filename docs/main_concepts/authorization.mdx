@@ -42,7 +42,7 @@ This context object is delivered to your code like below:
 
 ```typescript
 export async function sayHello(data: Data): Promise<StepResponse> {
-    console.log(data.method.context)
+    console.log(data.context)
     return data
 }
 ```
@@ -100,7 +100,7 @@ An example preauthorizer checking called method and caller identity name:
 
 ```typescript
 export async function preAuthorizer(data: Data): Promise<Response> {
-    if(data.method.name === "sayHello" && data.method.context.identity === "rbs_anonymous_user") return { statusCode: 403 }
+    if(data.content.methodName === "sayHello" && data.context.identity === "rbs_anonymous_user") return { statusCode: 403 }
     return { statusCode: 200 }
 }
 ```
@@ -114,8 +114,8 @@ Below there is an authorizer checking the state if this method can be called by 
 
 ```typescript
 export async function authorizer(data: Data): Promise<Response> {
-    if(data.method.name === "playHand" && 
-        data.state.private.currentPlayerId !== data.method.context.userId) 
+    if(data.context.methodName === "playHand" && 
+        data.state.private.currentPlayerId !== data.context.userId) 
         return { statusCode: 403 }
     return { statusCode: 200 }
 }

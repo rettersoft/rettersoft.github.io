@@ -31,7 +31,7 @@ export async function init(data: Data): Promise<InitResponse> {
 
 ### getState
 
-This method can be used to manipulate state object when a client asks for state. 
+This method can be used to get state object when a client asks for state. You can return part of the state or even a modified version of the state to a caller by changing this function. 
 
 ```typescript
 export async function getState(data: Data): Promise<Response> {

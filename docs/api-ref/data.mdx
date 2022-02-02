@@ -186,7 +186,7 @@ __`response: string`__
 You use response object to write data to the response of this method. Example usage:
 
 ```typescript
-data.method.response = {
+data.response = {
     statusCode: 200,
     headers: {
         "content-type": "application/json"
@@ -282,7 +282,7 @@ Client operating system of caller.
 
 ***
 
-## data.method.request
+## data.request
 
 Request object contains incoming data in this method call.
 
@@ -314,7 +314,7 @@ Query strings sent in this request.
 
 ***
 
-## data.method.response
+## data.response
 
 Response object can be used to return a response to the caller.
 
@@ -342,7 +342,7 @@ Headers sent to the client.
 
 ```typescript
 export async function sayHello(data: Data): Promise<StepResponse> {
-    data.method.response = {
+    data.response = {
         statusCode: 200,
         headers: {
             "content-type": "application/json"

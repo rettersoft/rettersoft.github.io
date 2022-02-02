@@ -1,0 +1,52 @@
+---
+sidebar_position: 1
+---
+
+# RDK
+
+### retter.io development kit
+
+You can use RDK to make calls to system resources like files or global memory.
+
+```typescript
+import RDK, { Data, InitResponse, Response, StepResponse } from "@retter/rdk"
+
+const rdk = new RDK()
+```
+
+There are two ways for calling a RDK operation:
+
+## RDK Pipeline
+
+With pipeline method you can add multiple operations to one API call. All operations will be handled in parallel.
+
+```typescript
+    await rdk.pipeline().addToSortedSet({
+        // ...
+    }).getFile({
+        // ...
+    }).send()
+```
+
+This returns following object.
+
+```typescript
+export interface OperationsOutput extends ReadonlyOperationsOutput {
+    setGlobalMemory?: OperationResponse[]
+    addToSortedSet?: OperationResponse[]
+    removeFromSortedSet?: OperationResponse[]
+    setFile?: OperationResponse[]
+    setLookUpKey?: OperationResponse[]
+    deleteLookUpKey?: OperationResponse[]
+}
+```
+
+## Call single operation
+
+You can call a single operation without pipelining.
+
+```typescript
+    await rdk.addToSortedSet({
+        // ...
+    })
+```
