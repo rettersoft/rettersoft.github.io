@@ -32,7 +32,7 @@ jobs:
           USE_SSH: true
           GIT_USER: docs-bot
         run: |
-          git config --global user.email "bot@rtbs.io"
+          git config --global user.email "bot@retter.io"
           git config --global user.name "docs-bot"
           npm install
           npm run deploy

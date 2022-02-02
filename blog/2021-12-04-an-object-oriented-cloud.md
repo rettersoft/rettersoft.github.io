@@ -7,9 +7,9 @@ tags: [rtbs, object oriented cloud, cloud]
 
 Cloud providers like AWS, GCP, Azure are next generation machines for writing programs to. Instead of writing containerized apps you can write serverless apps for these new big super computers. 
 
-However they allow you write stateless functions only. Data and functions are separated like in the early days of computing. rtbs.io is an object oriented approach to serverless cloud.
+However they allow you write stateless functions only. Data and functions are separated like in the early days of computing. retter.io is an object oriented approach to serverless cloud.
 
-![rtbs screenshot](http://s.rtbs.io/img/1*Nz9RJzQD_s1dN7d66n6Zsw.png)
+![rtbs screenshot](http://s.retter.io/img/1*Nz9RJzQD_s1dN7d66n6Zsw.png)
 
 <!--truncate-->
 
@@ -76,7 +76,7 @@ methods:
 
 This class definition template yml file creates the following diagram.
 
-![rtbs screenshot](http://s.rtbs.io/img/1*Nz9RJzQD_s1dN7d66n6Zsw.png)
+![rtbs screenshot](http://s.retter.io/img/1*Nz9RJzQD_s1dN7d66n6Zsw.png)
 
 We have two methods we can call from our clients. To call this object first you need to create an RBS SDK instance.
 

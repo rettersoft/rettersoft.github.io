@@ -186,8 +186,8 @@ When a cloud object instance created, first of all we need an `instanceId`. We c
 
 Example URL:
 ```
-instanceId: https://{projectId}.test-api.rtbs.io/INSTANCE/{class}/{instanceId}
-key:        https://{projectId}.test-api.rtbs.io/INSTANCE/{class}/{name!value}
+instanceId: https://{projectId}.test-api.retter.io/INSTANCE/{class}/{instanceId}
+key:        https://{projectId}.test-api.retter.io/INSTANCE/{class}/{name!value}
 ```
 instanceId can be omitted.
 
@@ -205,8 +205,8 @@ Clients also call to methods: `call` and `getState`. Each method is a different 
 
 Example URLS:
 ```
-https://{projectId}.test-api.rtbs.io/CALL/{classId}/{method}/{instanceId}
-https://{projectId}.test-api.rtbs.io/STATE/{classId}/{instanceId}
+https://{projectId}.test-api.retter.io/CALL/{classId}/{method}/{instanceId}
+https://{projectId}.test-api.retter.io/STATE/{classId}/{instanceId}
 ```
 
 > Each api request should called with `_token` query string parameter. We use action pipes to handle authentication. Client can send different parameters like `headers`, `querystring`, `httpMethod` and `payload`. These should be inclued the request.

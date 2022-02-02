@@ -20,7 +20,7 @@ const FeatureList: FeatureItem[] = [
     image: '/img/undraw_docusaurus_mountain.svg',
     description: (
       <>
-        rtbs.io was designed from the ground up to be the easiest platform to deploy a serverless system. 
+        retter.io was designed from the ground up to be the easiest platform to deploy a serverless system. 
       </>
     ),
   },
@@ -29,7 +29,7 @@ const FeatureList: FeatureItem[] = [
     image: '/img/undraw_docusaurus_tree.svg',
     description: (
       <>
-        rtbs.io lets you focus on your business logic, and we&apos;ll do the chores. 
+        retter.io lets you focus on your business logic, and we&apos;ll do the chores. 
       </>
     ),
   },
@@ -38,7 +38,7 @@ const FeatureList: FeatureItem[] = [
     image: '/img/undraw_docusaurus_react.svg',
     description: (
       <>
-        rtbs.io uses AWS Serverless in the backend. You don't even need to know what it is. It just works.
+        retter.io uses AWS Serverless in the backend. You don't even need to know what it is. It just works.
       </>
     ),
   },
