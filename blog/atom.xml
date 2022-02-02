@@ -82,10 +82,10 @@ export async function sendOTP(data: Data): Promise&lt;StepResponse&gt; {
     const otp = generateRandomOTP() // random 4 digit number between 1000-9999
 
     // get user&#x27;s phone number from client
-    const { phoneNumber } = data.method.request
+    const { phoneNumber } = data.request
 
     // use rbs actions to send otp sms
-    const { errors } = await sdk.rbsAction({
+    const { errors } = await rdk.rbsAction({
         name: &#x27;rbs.sms.request.SEND&#x27;,
         data: { type: &#x27;otp&#x27;, phoneNumber, message: `Doğrulama kodunuz: ${otp}` },
     })
@@ -94,7 +94,7 @@ export async function sendOTP(data: Data): Promise&lt;StepResponse&gt; {
         // we need to store otp code to access from validateOTP method
         data.state.private.otp = otp
     } else {
-        data.method.response = {
+        data.response = {
             statusCode: 500,
             body: { errors },
         }
@@ -104,11 +104,11 @@ export async function sendOTP(data: Data): Promise&lt;StepResponse&gt; {
 }
 </code></pre><h3>- validateOTP</h3><p>After sending otp code to user&#x27;s phone, we check if user enters rigth code to signin. We can check private state for that.</p><p><code>validateOTP</code> method consist of several steps. We check if otp is valid, and we check if user registered, if so we can create custom token to signin or inform user to register.</p><pre><code class="language-ts">// first flow
 export async function validateOTP(data: Data): Promise&lt;StepResponse&gt; {
-    if (data.state.private.otp === data.method.request.otp) {
+    if (data.state.private.otp === data.request.otp) {
         data.nextFlowId = &#x27;goToValidOTP&#x27;
     } else {
         data.nextFlowId = &#x27;goToInvalidOTP&#x27;
-        data.method.response = {
+        data.response = {
             statusCode: 403,
             body: { error: &#x27;invalidOTP&#x27; },
         }
@@ -119,10 +119,10 @@ export async function validateOTP(data: Data): Promise&lt;StepResponse&gt; {
 
 // goToValidOTP flow
 export async function lookupUser(data: Data): Promise&lt;StepResponse&gt; {
-    const { success: userFound } = await sdk.getLookUpKey({
+    const { success: userFound } = await rdk.getLookUpKey({
         key: {
             name: &#x27;phoneNumber&#x27;,
-            value: data.method.request.phoneNumber,
+            value: data.request.phoneNumber,
         },
     })
 
@@ -137,12 +137,12 @@ export async function lookupUser(data: Data): Promise&lt;StepResponse&gt; {
 
 // goToUserExists flow
 export async function generateToken(data: Data): Promise&lt;StepResponse&gt; {
-    const { response } = await sdk.rbsAction({
+    const { response } = await rdk.rbsAction({
         name: &#x27;rbs.core.request.GENERATE_CUSTOM_TOKEN&#x27;,
         data: { userId: data.method.context.userId, roleNames: [&#x27;enduser&#x27;] },
     })
 
-    data.method.response = {
+    data.response = {
         statusCode: 200,
         body: {
             customToken: response.customToken,
@@ -170,10 +170,10 @@ export async function generateToken(data: Data): Promise&lt;StepResponse&gt; {
 const sdk = new CloudObjectsOperator()
 
 export async function lookupUser(data: Data): Promise&lt;StepResponse&gt; {
-    const { success:userFound } = await sdk.getLookUpKey({ key: { name: &#x27;email&#x27;, value: data.method.request.email } })
+    const { success:userFound } = await rdk.getLookUpKey({ key: { name: &#x27;email&#x27;, value: data.request.email } })
 
     if(userFound) {
-        data.method.response = {
+        data.response = {
             statusCode: 403, body: { message: &quot;Email is taken&quot; }
         }
         return data
@@ -183,9 +183,9 @@ export async function lookupUser(data: Data): Promise&lt;StepResponse&gt; {
 }
 </code></pre><p>Our request will contain email, so we will use sdk.getLookupKey to check for another instance which might have the same email. Okay we are returning an error but let’s make it more visual in our method. Implement a flow and a second step.</p><p><img src="https://miro.medium.com/max/1400/1*03-6XHfe6UHJQHuOZzN2DQ.png" alt="rtbs screenshot"/></p><p>Why do we add a second step? We don’t have to add it. We can do everything in one step only. But if we separate different logics into different steps we can make it more visual and anybody looking at an execution later will be able to examine what happened very quickly.</p><p>Now add another step to create this user.</p><p><img src="https://miro.medium.com/max/1400/1*bCig2aoebOoToF1WkXbgwA.png" alt="rtbs screenshot"/></p><p>How do we tell the method to go to emailAlreadyTaken step? We use data.nextFlowId field. Like so:</p><p><img src="https://miro.medium.com/max/1400/1*0PY4PPVBDHTjXnQ0fM8kdg.png" alt="rtbs screenshot"/></p><p>We can also move some code to another function:</p><p><img src="https://miro.medium.com/max/1400/1*WbwvtZYqdt7n0L4uZZAESw.png" alt="rtbs screenshot"/></p><p>We have 3 functions. Now let’s see how we create a user.</p><pre><code class="language-typescript">export async function createUser(data: Data): Promise&lt;StepResponse&gt; {
 
-    const { email, name, password } = data.method.request
+    const { email, name, password } = data.request
 
-    await sdk.setLookUpKey({
+    await rdk.setLookUpKey({
         key: {
             name: &#x27;email&#x27;,
             value: email
@@ -205,12 +205,12 @@ export async function lookupUser(data: Data): Promise&lt;StepResponse&gt; {
 }
 </code></pre><p>We first set email as a lookup value to this instance. Now let’s add another step to generate a token. This token will be used by the client to sign in to rtbs.</p><pre><code class="language-typescript">export async function generateToken(data: Data): Promise&lt;StepResponse&gt; {
 
-    const actionResponse = await sdk.rbsAction({
+    const actionResponse = await rdk.rbsAction({
         name: &#x27;rbs.core.request.GENERATE_CUSTOM_TOKEN&#x27;,
         data: { userId: data.method.context.userId, roleNames: [&#x27;enduser&#x27;] }
     })
 
-    data.method.response = {
+    data.response = {
         statusCode: 200,
         body: {
             customToken: actionResponse.response.customToken
