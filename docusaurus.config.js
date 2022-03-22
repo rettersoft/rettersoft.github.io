@@ -1,40 +1,39 @@
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
 
-const lightCodeTheme = require("prism-react-renderer/themes/github");
-const darkCodeTheme = require("prism-react-renderer/themes/dracula");
+const lightCodeTheme = require('prism-react-renderer/themes/github');
+const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: "rtbs.io",
-  tagline: "Object Oriented Cloud",
-  url: "https://rettersoft.github.io",
-  baseUrl: "/",
-  onBrokenLinks: "throw",
-  onBrokenMarkdownLinks: "warn",
-  favicon: "img/favicon.ico",
-  organizationName: "rettersoft", // Usually your GitHub org/user name.
-  projectName: "rettersoft.github.io", // Usually your repo name.
-  deploymentBranch: "gh-pages",
-  trailingSlash: true,
+  title: 'Rio Docs',
+  tagline: 'Just Code Your Code',
+  url: 'https://retterio-documentation.com',
+  baseUrl: '/',
+  onBrokenLinks: 'throw',
+  onBrokenMarkdownLinks: 'warn',
+  favicon: 'img/RetterLogo.png',
+  organizationName: 'rettermobile', // Usually your GitHub org/user name.
+  projectName: 'riodocs', // Usually your repo name.
+
   presets: [
     [
-      "@docusaurus/preset-classic",
+      'classic',
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
-          sidebarPath: require.resolve("./sidebars.js"),
+          sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
-          editUrl: "https://github.com/facebook/docusaurus/edit/main/website/",
+          editUrl: 'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
         },
         blog: {
           showReadingTime: true,
           // Please change this to your repo.
           editUrl:
-            "https://github.com/facebook/docusaurus/edit/main/website/blog/",
+            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
         },
         theme: {
-          customCss: require.resolve("./src/css/custom.css"),
+          customCss: require.resolve('./src/css/custom.css'),
         },
       }),
     ],
@@ -44,72 +43,102 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
-        title: "",
+        title: 'Rio Doc',
         logo: {
-          alt: "rtbs.io",
-          src: "/img/rtbs_logo.svg",
-          href: "/docs/intro/"
+          alt: 'Retter Logo',
+          src: 'img/RetterLogo.png',
         },
         items: [
           {
-            type: "doc",
-            docId: "intro",
-            position: "left",
-            label: "Docs",
+            type: 'doc',
+            docId: 'Getting Started/Intro',
+            position: 'left',
+            label: 'Getting Started',
           },
-          
-          { to: "/blog", label: "Blog", position: "left" },
           {
-            href: "https://github.com/rettersoft",
-            label: "GitHub",
-            position: "right",
+            type: 'doc',
+            docId: 'Concepts/Serverless Computing',
+            position: 'left',
+            label: 'Concepts',
+          },
+          {
+            type: 'doc',
+            docId: 'Guides/Setting Up Your Enviroment',
+            position: 'left',
+            label: 'Guides',
+          },
+          {
+            type: 'doc',
+            docId: 'Reference/Method Data Context',
+            position: 'left',
+            label: 'Reference',
+          },
+          {
+            type: 'doc',
+            docId: 'About/FAQ',
+            position: 'left',
+            label: 'About',
+          },
+          //{to: '/blog', label: 'Blog', position: 'left'},
+          {
+            href: 'https://github.com/facebook/docusaurus',
+            label: 'GitHub',
+            position: 'right',
           },
         ],
       },
       footer: {
-        style: "dark",
+        style: 'dark',
         links: [
           {
-            title: "Docs",
+            title: 'Docs',
             items: [
               {
-                label: "Tutorial",
-                to: "/docs/intro",
+                label: 'Getting Started',
+                to: '/docs/Getting Started/intro',
+              },
+              {
+                label: 'Concepts',
+                to: '/docs/Concepts/Serverless Computing',
+              },
+              {
+                label: 'Guides',
+                to: '/docs/Guides/Setting Up Your Enviroment',
+              },
+              {
+                label: 'Reference',
+                to: '/docs/Reference/Method Data Context',
+              },
+              {
+                label: 'About',
+                to: '/docs/About/FAQ',
               },
             ],
           },
           {
-            title: "Community",
+            title: 'Community',
             items: [
               {
-                label: "Stack Overflow",
-                href: "https://stackoverflow.com/questions/tagged/docusaurus",
+                label: 'Twitter',
+                href: 'https://twitter.com/retter_io',
               },
               {
-                label: "Discord",
-                href: "https://discordapp.com/invite/docusaurus",
-              },
-              {
-                label: "Twitter",
-                href: "https://twitter.com/docusaurus",
+                label: 'Discord',
+                href: 'https://discordapp.com/',
               },
             ],
           },
           {
-            title: "More",
+            title: 'More',
             items: [
               {
-                label: "Blog",
-                to: "/blog",
-              },
-              {
-                label: "GitHub",
-                href: "https://github.com/facebook/docusaurus",
+                label: 'GitHub',
+                href: 'https://github.com/facebook/docusaurus',
               },
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} rtbs.io`,
+        copyright: `Copyright © ${new Date().getFullYear()} Rio, Inc.`,
       },
       prism: {
         theme: lightCodeTheme,
