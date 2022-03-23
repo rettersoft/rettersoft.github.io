@@ -8,15 +8,15 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const config = {
   title: 'Rio Docs',
   tagline: 'Just Code Your Code',
-  url: 'https://retterio-documentation.com',
+  url: 'https://rettersoft.github.io',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/RetterLogo.png',
   organizationName: 'rettersoft', // Usually your GitHub org/user name.
   projectName: 'rettersoft.github.io', // Usually your repo name.
-  deploymentBranch: 'master',
-
+  deploymentBranch: 'gh-pages',
+  trailingSlash: true,
   presets: [
     [
       'classic',
