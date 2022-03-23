@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkrbs_dev_docs=self.webpackChunkrbs_dev_docs||[]).push([[7841],{5201:function(s){s.exports=JSON.parse('{"allTagsPath":"/blog/tags","slug":"/blog/tags/cloud-objects","name":"cloudObjects","count":1,"permalink":"/blog/tags/cloud-objects"}')}}]);

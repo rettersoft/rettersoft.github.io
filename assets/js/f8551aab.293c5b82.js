@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkrio_doc=self.webpackChunkrio_doc||[]).push([[1743],{7574:function(e,n,t){t.r(n),t.d(n,{default:function(){return a}});var c=t(7294),u=t(2773);function a(){return c.createElement(u.Z,null,c.createElement("h1",null,"My React page"),c.createElement("p",null,"This is a React page"))}}}]);
