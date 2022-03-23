@@ -4,24 +4,17 @@ sidebar_position: 14
 ---
 
 # setFile
-Body içerisinde `msisdn` ve `profile` bekler.
+setFile is used for saving a with a filename. File can be reached later on with getFile function. Expects filename {string} and body {any}
 
-```json
-{
-    "msisdn": "{string}",
-    "profile": {
-       "firstName": "{string}",
-       "lastName": "{string}",
-       "phoneNumber": "{string}",
-       "email": "{string}",
-       "district": "{string}",
-       "province": "{string}"
-   }
-}
+```typescript
+const result = await rdk.setFile({
+            filename: "fileName",
+            body: "file",
+        })
 ```
-#### Response
-```json
+# Response
+```json 
 {
-    "message": "success"
+    "success": true
 }
 ```

@@ -4,24 +4,17 @@ sidebar_position: 11
 ---
 
 # removeFromSortedSet
-Body içerisinde `msisdn` ve `profile` bekler.
+Removes a value from sorted set. Expects setName{string} and sortKey{string}
 
-```json
-{
-    "msisdn": "{string}",
-    "profile": {
-       "firstName": "{string}",
-       "lastName": "{string}",
-       "phoneNumber": "{string}",
-       "email": "{string}",
-       "district": "{string}",
-       "province": "{string}"
-   }
-}
+```typescript
+let result = await rdk.removeFromSortedSet({
+        setName: "setName",
+        sortKey: "sortkey"
+    })
 ```
-#### Response
+# Response
 ```json
 {
-    "message": "success"
+    "success": true
 }
 ```

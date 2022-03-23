@@ -4,24 +4,23 @@ sidebar_position: 2
 ---
 
 # getLookUpKey
-Body içerisinde `msisdn` ve `profile` bekler.
+Excepts key name{string} and value{string}, returns related instanceId
 
-```json
-{
-    "msisdn": "{string}",
-    "profile": {
-       "firstName": "{string}",
-       "lastName": "{string}",
-       "phoneNumber": "{string}",
-       "email": "{string}",
-       "district": "{string}",
-       "province": "{string}"
-   }
-}
+```typescript
+const result = await rdk.getLookUpKey({ 
+    key: { 
+        name: 'email', 
+        value: email 
+    } 
+});
+  
 ```
-#### Response
+# Response
 ```json
-{
-    "message": "success"
+{ 
+    "success": true, 
+    "data": { 
+        "instanceId": "instanceId"
+        } 
 }
 ```

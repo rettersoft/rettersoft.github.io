@@ -22,6 +22,6 @@ Body içerisinde `msisdn` ve `profile` bekler.
 #### Response
 ```json
 {
-    "message": "success"
+    "message": "success" 
 }
 ```

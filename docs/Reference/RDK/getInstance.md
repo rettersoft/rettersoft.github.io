@@ -4,24 +4,32 @@ sidebar_position: 17
 ---
 
 # getInstance
-Body içerisinde `msisdn` ve `profile` bekler.
+If instanceId is provided, getInstance method returns information about that instances methods. If instanceId is not provided then a new instance is created
 
-```json
-{
-    "msisdn": "{string}",
-    "profile": {
-       "firstName": "{string}",
-       "lastName": "{string}",
-       "phoneNumber": "{string}",
-       "email": "{string}",
-       "district": "{string}",
-       "province": "{string}"
-   }
-}
+```typescript
+let result = await rdk.getInstance({
+            classId: 'classId',
+            instanceId: 'instanceId'
+            body: {
+            }
+            })
 ```
-#### Response
+# Response
 ```json
 {
-    "message": "success"
-}
+  "statusCode": 200,
+  "body": {
+    "instanceId": "instanceId",
+    "newInstance": true,
+    "methods": [
+      {
+        "name": "test",
+        "type": "QUEUED_WRITE",
+        "sync": true,
+        "tag": "test"
+      }
+    ],
+    "response": {
+      "instanceId": "instanceId"
+    }
 ```

@@ -4,24 +4,22 @@ sidebar_position: 1
 ---
 
 # generateCustomToken
-Body içerisinde `msisdn` ve `profile` bekler.
+Expects identity and userId values. Returns a token
 
-```json
-{
-    "msisdn": "{string}",
-    "profile": {
-       "firstName": "{string}",
-       "lastName": "{string}",
-       "phoneNumber": "{string}",
-       "email": "{string}",
-       "district": "{string}",
-       "province": "{string}"
-   }
-}
+# Usecase
+
+```typescript
+ const tokenResult = await rdk.generateCustomToken({
+        identity: {string},
+        userId: {string}
+})
 ```
-#### Response
+# Response
 ```json
 {
-    "message": "success"
-}
+"success": true,      
+"data": {      
+    "customToken": "customTokenString"      
+}  
+
 ```

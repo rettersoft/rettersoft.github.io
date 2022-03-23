@@ -4,24 +4,14 @@ sidebar_position: 7
 ---
 
 # deleteMemory
-Body içerisinde `msisdn` ve `profile` bekler.
+Deletes a value from memory. Expects key only
 
-```json
-{
-    "msisdn": "{string}",
-    "profile": {
-       "firstName": "{string}",
-       "lastName": "{string}",
-       "phoneNumber": "{string}",
-       "email": "{string}",
-       "district": "{string}",
-       "province": "{string}"
-   }
-}
+```typescript
+    const result= await rdk.deleteMemory({ key: 'key'});
 ```
-#### Response
+# Response
 ```json
 {
-    "message": "success"
+    "success": true
 }
 ```

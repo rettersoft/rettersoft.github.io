@@ -4,24 +4,17 @@ sidebar_position: 5
 ---
 
 # setMemory
-Body içerisinde `msisdn` ve `profile` bekler.
+Excepts key{string} and value{any} in the form below
 
-```json
-{
-    "msisdn": "{string}",
-    "profile": {
-       "firstName": "{string}",
-       "lastName": "{string}",
-       "phoneNumber": "{string}",
-       "email": "{string}",
-       "district": "{string}",
-       "province": "{string}"
-   }
-}
+```typescript
+    const result= await rdk.setMemory({
+        key: 'key',
+        value: 'value'
+    })
 ```
-#### Response
+# Response
 ```json
 {
-    "message": "success"
+    "success": true
 }
 ```

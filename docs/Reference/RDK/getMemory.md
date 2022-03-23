@@ -4,24 +4,16 @@ sidebar_position: 6
 ---
 
 # getMemory
-Body içerisinde `msisdn` ve `profile` bekler.
+Can be used to get a value that is set to memory before. Expects key{string} only
 
-```json
-{
-    "msisdn": "{string}",
-    "profile": {
-       "firstName": "{string}",
-       "lastName": "{string}",
-       "phoneNumber": "{string}",
-       "email": "{string}",
-       "district": "{string}",
-       "province": "{string}"
-   }
-}
+```typescript
+    const result= await rdk.getMemory({ key: 'key' });
 ```
-#### Response
+# Response
 ```json
-{
-    "message": "success"
+ {  "success": true, 
+    "data": { 
+        "value": "value" 
+    } 
 }
 ```

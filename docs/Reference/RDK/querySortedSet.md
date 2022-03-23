@@ -4,24 +4,21 @@ sidebar_position: 12
 ---
 
 # querySortedSet
-Body içerisinde `msisdn` ve `profile` bekler.
+Returns the given number of values from sorted set. Expects setName{string} and limit{number,optional}
 
-```json
-{
-    "msisdn": "{string}",
-    "profile": {
-       "firstName": "{string}",
-       "lastName": "{string}",
-       "phoneNumber": "{string}",
-       "email": "{string}",
-       "district": "{string}",
-       "province": "{string}"
-   }
-}
+```typescript
+    const result = await rdk.querySortedSet({
+        setName: "setName",
+        limit: 5
+        }
+    })
 ```
-#### Response
+# Response
 ```json
 {
-    "message": "success"
+    "success": true,
+    "data":{
+
+    } 
 }
 ```

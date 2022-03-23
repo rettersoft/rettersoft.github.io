@@ -4,24 +4,16 @@ sidebar_position: 13
 ---
 
 # getFile
-Body içerisinde `msisdn` ve `profile` bekler.
-
-```json
-{
-    "msisdn": "{string}",
-    "profile": {
-       "firstName": "{string}",
-       "lastName": "{string}",
-       "phoneNumber": "{string}",
-       "email": "{string}",
-       "district": "{string}",
-       "province": "{string}"
-   }
-}
+Gets the file with given file name. Expects filename{string}
+```typescript
+const file = await rdk.getFile({
+    filename: "fileName"
+})
 ```
-#### Response
+# Response
 ```json
 {
-    "message": "success"
+    "data": "file",
+    "success": true
 }
 ```

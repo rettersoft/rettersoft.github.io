@@ -4,24 +4,20 @@ sidebar_position: 3
 ---
 
 # setLookUpKey
-Body içerisinde `msisdn` ve `profile` bekler.
+Excepts key name{string} and value{string}, returns success
 
-```json
-{
-    "msisdn": "{string}",
-    "profile": {
-       "firstName": "{string}",
-       "lastName": "{string}",
-       "phoneNumber": "{string}",
-       "email": "{string}",
-       "district": "{string}",
-       "province": "{string}"
-   }
-}
+```typescript
+const result = await rdk.setLookUpKey({ 
+    key: { 
+        name: 'email', 
+        value: email 
+    } 
+});
+  
 ```
-#### Response
+# Response
 ```json
-{
-    "message": "success"
+{ 
+    "success": true
 }
 ```

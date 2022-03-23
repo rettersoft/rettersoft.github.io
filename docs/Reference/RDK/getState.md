@@ -4,24 +4,32 @@ sidebar_position: 18
 ---
 
 # getState
-Body içerisinde `msisdn` ve `profile` bekler.
+getState method returns the specifed instances state value. Together with instanceId, classId should be given
 
-```json
-{
-    "msisdn": "{string}",
-    "profile": {
-       "firstName": "{string}",
-       "lastName": "{string}",
-       "phoneNumber": "{string}",
-       "email": "{string}",
-       "district": "{string}",
-       "province": "{string}"
-   }
-}
+```typescript
+      let result = await rdk.getState({
+            classId:'classId',
+            instanceId: 'instanceId'
+            })
 ```
-#### Response
+# Response
 ```json
 {
-    "message": "success"
+  "statusCode": 200,
+  "body": {
+    "public": {
+      "message": "Hello World"
+    },
+    "private": {},
+    "user": {},
+    "role": {}
+  },
+  "headers": {
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Expose-Headers": "*",
+    "Access-Control-Allow-Methods": "*",
+    "Access-Control-Allow-Headers": "*",
+    "Content-Type": "application/json"
+  }
 }
 ```

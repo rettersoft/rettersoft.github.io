@@ -4,24 +4,17 @@ sidebar_position: 15
 ---
 
 # deleteFile
-Body içerisinde `msisdn` ve `profile` bekler.
+Deletes a saved file. Expects filename{string}
 
-```json
-{
-    "msisdn": "{string}",
-    "profile": {
-       "firstName": "{string}",
-       "lastName": "{string}",
-       "phoneNumber": "{string}",
-       "email": "{string}",
-       "district": "{string}",
-       "province": "{string}"
-   }
-}
+```typescript
+const file = await rdk.deleteFile({
+    filename: "fileName"
+})
 ```
-#### Response
-```json
+
+# Response
+```json 
 {
-    "message": "success"
+    "success": true
 }
 ```

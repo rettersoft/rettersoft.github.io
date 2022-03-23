@@ -4,24 +4,19 @@ sidebar_position: 9
 ---
 
 # addToSortedSet
-Body içerisinde `msisdn` ve `profile` bekler.
-
-```json
-{
-    "msisdn": "{string}",
-    "profile": {
-       "firstName": "{string}",
-       "lastName": "{string}",
-       "phoneNumber": "{string}",
-       "email": "{string}",
-       "district": "{string}",
-       "province": "{string}"
-   }
-}
+You can write to a sorted set using this method. Expects setName {string}, sortKey{string} and data{object}
+```typescript
+    const result = await rdk.addToSortedSet({
+        setName: "setName",
+        sortKey: "sortKey",
+        data: {
+            "message": "foo"
+        }
+    })
 ```
-#### Response
+# Response
 ```json
 {
-    "message": "success"
+    "success": true
 }
 ```
