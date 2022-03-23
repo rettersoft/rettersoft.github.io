@@ -15,6 +15,7 @@ const config = {
   favicon: 'img/RetterLogo.png',
   organizationName: 'rettersoft', // Usually your GitHub org/user name.
   projectName: 'rettersoft.github.io', // Usually your repo name.
+  deploymentBranch: 'master',
 
   presets: [
     [
