@@ -138,7 +138,7 @@ const config = {
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} Rio, Inc.`,
+        copyright: `Copyright © ${new Date().getFullYear()} Retter.io`,
       },
       prism: {
         theme: lightCodeTheme,
