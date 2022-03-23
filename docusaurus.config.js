@@ -13,8 +13,8 @@ const config = {
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/RetterLogo.png',
-  organizationName: 'rettermobile', // Usually your GitHub org/user name.
-  projectName: 'riodocs', // Usually your repo name.
+  organizationName: 'rettersoft', // Usually your GitHub org/user name.
+  projectName: 'rettersoft.github.io', // Usually your repo name.
 
   presets: [
     [
