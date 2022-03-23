@@ -4,7 +4,7 @@ import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import styles from './index.module.css';
-import HomepageFeatures from '../components/HomepageFeatures';
+import HomepageFeatures from '@site/src/components/HomepageFeatures';
 
 function HomepageHeader() {
   const {siteConfig} = useDocusaurusContext();
@@ -16,8 +16,8 @@ function HomepageHeader() {
         <div className={styles.buttons}>
           <Link
             className="button button--secondary button--lg"
-            to="/other">
-            Docusaurus Tutorial - 5min ⏱️
+            to="/docs/Getting Started/Intro">
+            Get Started to Rio - 10min ⏱️
           </Link>
         </div>
       </div>
@@ -25,19 +25,15 @@ function HomepageHeader() {
   );
 }
 
-
 export default function Home(): JSX.Element {
   const {siteConfig} = useDocusaurusContext();
   return (
     <Layout
-      title={`Hello from ${siteConfig.title}`}
-      description="Description will go into a meta tag in <head />">
+      title={`Welcome to ${siteConfig.title}`}
+      description="Rio documentation <head />">
       <HomepageHeader />
       <main>
         <HomepageFeatures />
-        <script>
-          window.location = '/docs/intro/'
-        </script>
       </main>
     </Layout>
   );
