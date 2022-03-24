@@ -17,7 +17,7 @@ Expects identity and userId values. Returns a token
 # Response
 ```json
 {
-"success": true,      
+"success": true,
 "data": {      
     "customToken": "customTokenString"      
 }  

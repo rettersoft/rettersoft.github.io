@@ -4,9 +4,9 @@ sidebar_position: 10
 ---
 
 
-# Global Memory
+# Memory
 
-Think of rtbs as one big computer. There are object instances all over. Some instances can write to a global shared memory for other instances to consume. 
+Think of rtbs as one big computer. There are object instances all over. Some instances can write to a shared memory for other instances to consume. 
 
 For example a __Product__ class can write its metadata to its state like this:
 
