@@ -4,7 +4,7 @@ sidebar_position: 3
 ---
 
 # setLookUpKey
-Excepts key name{string} and value{string}, returns success
+Expects key name{string} and value{string}, returns success
 
 ```typescript
 const result = await rdk.setLookUpKey({ 
