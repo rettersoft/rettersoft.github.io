@@ -31,55 +31,95 @@ A class consist of `template.yml`, `package.json`, and typescript user codes. Th
 
 In `template.yml` file, you can configure how to interact with a class. You can point to methods using file name and method name with dot notation like `fileName.methodName`. File name refers to typescript file and method name refers to function exported on that file.
 
+Additionally, you can use `npm` packages with classes. Just add any package use want to use to dependencies.
+
+### Learn With Demo
+
+For demo purposes let's create a todo app backend. A simple todo app needs 3 methods: list, create, and markAsCompleted. Let's create a `Todo` class and define these methods in template.
+
 ```yaml
 # template.yml
-authorizer: index.authorizer
-init: index.init
-getState: index.getState
+...rest
 methods:
-    - method: sayHello
-      tag: test
+    - method: listTodos
       sync: true
-      handler: index.sayHello
+      handler: index.listTodos
+    - method: createTodo
+      sync: true
+      handler: index.createTodo
+    - method: markTodoAsCompleted
+      sync: true
+      handler: index.markTodoAsCompleted
 ```
 
-You can use `npm` packages with classes. Just add any package to dependencies.
+Now, we can create corresponding functions.
 
-```json
-// package.json
-{
-    "name": "simple",
-    "version": "1.0.0",
-    "dependencies": {
-        "@retter/rdk": "1.1.2"
-    }
-}
-```
-
-
+Rio has first-class typescript support for easing developers life. We'll leverage typescript when creating methods. Each method receives a `data` object and must return a `StepResponse`. You can find out more about this in [Method Data Context Reference](/docs/Reference/Method%20Data%20Context/).
 
 ```ts
-import RDK, { Data, InitResponse, Response, StepResponse } from '@retter/rdk'
+// index.ts
+import { Data, StepResponse } from '@retter/rdk'
 
-const rdk = new RDK()
-
-export async function authorizer(data: Data): Promise<Response> {
-    return { statusCode: 200 }
-}
+// ...rest
 
 export async function init(data: Data): Promise<InitResponse> {
-    return { state: { public: { message: 'Hello World' } } }
+  return { state: { public: { items: [] } }
 }
 
-export async function getState(data: Data): Promise<Response> {
-    return { statusCode: 200, body: data.state }
+export async function listTodos(data: Data): Promise<StepResponse> {
+    return data
 }
 
-export async function sayHello(data: Data): Promise<StepResponse> {
-    data.response = {
-        statusCode: 200,
-        body: { message: data.state.public.message },
-    }
+export async function createTodo(data: Data): Promise<StepResponse> {
+    return data
+}
+
+export async function markTodoAsCompleted(data: Data): Promise<StepResponse> {
     return data
 }
 ```
+
+Now, we can impletement our logic. Rio methods are statefull. We don't need any database, we can just use simple state. Find out more on [State](/docs/Concepts/State/) docs.
+
+To creating a list item, we need a task. We can get task information from the data's request object.
+
+> To keep things simple, we dont implement all details for todo app.
+
+```ts
+export async function createTodo(data: Data): Promise<StepResponse> {
+    const { task } = data.request.body
+
+    data.state.public.items.push({
+        task,
+        isCompleted: false,
+    })
+
+    return data
+}
+```
+
+```ts
+export async function markTodoAsCompleted(data: Data): Promise<StepResponse> {
+    const { task } = data.request.body
+
+    const item = data.state.public.items.find(item => item.task === task)
+    item.isCompleted = true
+
+    return data
+}
+```
+
+```ts
+export async function listTodos(data: Data): Promise<StepResponse> {
+    data.response = {
+        statusCode: 200,
+        body: {
+            items: daat.state.public.items,
+        },
+    }
+
+    return data
+}
+```
+
+Now, we can test out the class we created. Click the `Test` button and get an instance.
