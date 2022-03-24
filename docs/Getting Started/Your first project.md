@@ -27,7 +27,11 @@ As you know, Rio is an object-oriented cloud provider. We can define our classes
 
 Click the `Create` button and name the class you want to create. After class creation, you'll see the class contents.
 
+<<<<<<< Updated upstream
 A class consist of `template.yml`, `package.json`, and typescript user codes. This tutorial we won't dive into details. You can find detailed explanations on References section.
+=======
+A class consist of `template.yml`, `package.json`, and typescript user codes. This tutorial we won't dive into details. You can find detailed explanations on [References](/docs/Reference/Template) section.
+>>>>>>> Stashed changes
 
 In `template.yml` file, you can configure how to interact with a class. You can point to methods using file name and method name with dot notation like `fileName.methodName`. File name refers to typescript file and method name refers to function exported on that file.
 
