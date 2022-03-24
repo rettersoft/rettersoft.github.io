@@ -4,7 +4,7 @@ sidebar_position: 4
 ---
 
 # deleteLookUpKey
-Excepts key name{string} and value{string}, returns success
+Expects key name{string} and value{string}, returns success
 
 ```typescript
 const result = await rdk.deleteLookUpKey({ key: { name: 'email', value: email } });
