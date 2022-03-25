@@ -124,20 +124,20 @@ const config = {
                 href: 'https://twitter.com/retter_io',
               },
               {
-                label: 'Discord',
-                href: 'https://discordapp.com/',
+                label: 'Youtube',
+                href: 'https://www.youtube.com/channel/UCcSE3QHVrW4NwXyKmxQXvOw',
               },
             ],
           },
-          {
-            title: 'More',
-            items: [
-              {
-                label: 'GitHub',
-                href: 'https://github.com/facebook/docusaurus',
-              },
-            ],
-          },
+          // {
+          //   title: 'More',
+          //   items: [
+          //     {
+          //       label: 'GitHub',
+          //       href: 'https://github.com/facebook/docusaurus',
+          //     },
+          //   ],
+          // },
         ],
         copyright: `Copyright © ${new Date().getFullYear()} Retter.io`,
       },
