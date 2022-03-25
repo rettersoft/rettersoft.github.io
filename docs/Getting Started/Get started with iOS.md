@@ -30,7 +30,7 @@ https://github.com/rettersoft/rio-ios-sdk
 
 ## Initialize SDK
 
-Initialize the SDK with your project id created in RBS console.
+Initialize the SDK with your project id created in Rio console.
 
 ```swift
 let rio = Rio.init(config: RioConfig(projectId: "{PROJECT_ID}"))
