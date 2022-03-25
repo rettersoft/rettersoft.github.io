@@ -82,7 +82,7 @@ const config = {
           // },
           //{to: '/blog', label: 'Blog', position: 'left'},
           {
-            href: 'https://github.com/facebook/docusaurus',
+            href: 'https://github.com/rettersoft/',
             label: 'GitHub',
             position: 'right',
           },
@@ -129,15 +129,15 @@ const config = {
               },
             ],
           },
-          // {
-          //   title: 'More',
-          //   items: [
-          //     {
-          //       label: 'GitHub',
-          //       href: 'https://github.com/facebook/docusaurus',
-          //     },
-          //   ],
-          // },
+          {
+            title: 'More',
+            items: [
+              {
+                label: 'GitHub',
+                href: 'https://github.com/rettersoft/',
+              },
+            ],
+          },
         ],
         copyright: `Copyright © ${new Date().getFullYear()} Retter.io`,
       },
