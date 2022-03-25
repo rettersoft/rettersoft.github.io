@@ -25,7 +25,7 @@ const config = {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
-          editUrl: 'https://github.com/rettersoft/rettersoft.github.io/tree/New-Side-Bar',
+          editUrl: 'https://github.com/rettersoft/rettersoft.github.io/blob/master/',
         },
         blog: {
           showReadingTime: true,
