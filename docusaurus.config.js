@@ -98,7 +98,7 @@ const config = {
             items: [
               {
                 label: 'Getting Started',
-                to: '/docs/Getting Started/intro',
+                to: '/docs/Getting Started/Your first project',
               },
               {
                 label: 'Concepts',
