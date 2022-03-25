@@ -13,8 +13,8 @@ Contains information about the request method has received. Has the following fo
 ### Request Model
 ```typescript
 export interface Request<T = any> {
-    httpMethod: string
-    body?: T
+    httpMethod: string  // GET, POST, OPTIONS etc.
+    body?: T            // Content received as the request.
     headers: { [key: string]: string }
     queryStringParams: { [key: string]: string }
 }
@@ -32,9 +32,9 @@ Using the response, anyting can be returned in the body.
 
 ```typescript
 export interface Response<T = any> {
-    statusCode: number
-    body?: T
-    headers?: { [key: string]: string },
+    statusCode: number   // HTTP request codes. e.g 200 for success.
+    body?: T            // Actual content that will be returned as the response.
+    headers?: { [key: string]: string }, // Response headers could be specified here.
     isBase64Encoded?: boolean
 }
 ```
@@ -54,28 +54,28 @@ Context has the metadata values of data.
 ### Context Model
 ```typescript
 export interface Context {
-    requestId: string
-    projectId: string
-    action: string
-    identity: string
-    serviceId?: string
+    requestId: string               // Every method call has a unique requestId. 
+    projectId: string               // projectId that method belongs to.
+    action: string                  // Action method called with. 
+    identity: string                // Identity of the methods caller. Like the rolename of the user. Extracted from token provided
+    serviceId?: string              // If method is called via a service, null otherwise
     headers?: { [key: string]: any }
-    classId: string
-    instanceId?: string
-    methodName: string
+    classId: string                 // classId this method belongs to.
+    instanceId?: string             // instanceId of this request received from.
+    methodName: string              // Name of the method. 
     refererClassId?: string
     refererInstanceId?: string
     refererMethodName?: string
     refererUserId?: string
     refererIdentity?: string
-    claims?: { [key: string]: any }
+    claims?: { [key: string]: any } // Attributes claimed by method caller. Could be email, role,  etc.
     isAnonymous?: boolean
-    culture?: string
-    platform?: string
-    userId?: string
-    sourceIP: string
+    culture?: string                // language option if provided
+    platform?: string               // platform information of the request, if provided
+    userId?: string                 // userId of the method caller
+    sourceIP: string                // IP of the request received from
     sessionId?: string
-    clientOs?: string
+    clientOs?: string               // operationSystem of the client that created the request
     targetServiceIds?: string[]
     relatedUserId?: string
     pathParameters?: {
@@ -92,9 +92,9 @@ State represents the state of that instance. Contrary to public, private object 
 ### State Model
 ```typescript
 export interface State {
-    public?: { [key: string]: any }
-    private?: { [key: string]: any }
-    user?: { [userId: string]: { [key: string]: any } }
+    public?: { [key: string]: any } // Object that public data can be stored in
+    private?: { [key: string]: any } // Data that is private to that instance can be stored here
+    user?: { [userId: string]: { [key: string]: any } } 
     role?: { [identity: string]: { [key: string]: any } }
 }
 ```
