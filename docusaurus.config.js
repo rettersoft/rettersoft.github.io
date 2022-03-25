@@ -78,7 +78,7 @@ const config = {
             type: 'doc',
             docId: 'About/Limits',
             position: 'left',
-            label: 'about',
+            label: 'About',
           },
           // {
           //   to: '/blog', label: 'Blog', position: 'left'
@@ -114,7 +114,7 @@ const config = {
               },
               {
                 label: 'About',
-                to: '/docs/About/FAQ',
+                to: '/docs/About/Limits',
               },
             ],
           },
