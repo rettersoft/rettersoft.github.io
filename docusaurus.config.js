@@ -7,7 +7,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'Rio Docs',
-  tagline: 'Just Code Your Code',
+  tagline: 'Just Business Logic',
   url: 'https://rettersoft.github.io',
   baseUrl: '/',
   onBrokenLinks: 'throw',
