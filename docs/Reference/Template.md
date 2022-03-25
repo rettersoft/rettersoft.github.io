@@ -56,16 +56,18 @@ export async function init(data: Data): Promise<InitResponse> {
   return data;
 }
 ```
+## get
 
+o instance daha önce yaratılmışsa get'de specify edilen fonksiyon çağılır. required değil 
 ## getState
 
-Getstate can be configured asf how you want your state to be returned. Common usage is as;
+getState can be configured as how you want your state to be returned. Common usage is as;
 
 ```typescript
 export async function getState(data: Data): Promise<Response> {
   return {
     statusCode: 200,
-    body: data.state,
+    body: data.state.public,
   };
 }
 ```
@@ -101,12 +103,12 @@ Sync can have 2 values: true or false. If it is set to true, method will return 
 
 There are 4 different type values:
 - **WRITE**: Write typed method can manipulate the state. But the request are not queued so they can overwrite eachother.
-- **QUEUED_WRITE**: Method can manipulate the state, but request are queued in order.
+- **QUEUED_WRITE**: Method can manipulate the state, but request are queued in order. If type is not specified, default method type is QUEUED_WRITE.
 - **READ**: Method can only read the state but can not change it. Responds faster compared to write types.
 - **STATIC**: Static type method have no instance therefore no state. Fastest among them.
 ### Models
 
-Every methods input, output and error can be **validated** with assgining a certain model to it. As in the example template, apiHandler method has 3 models assigned to it. These models can be defined in Models tab. 
+Every methods input, output and error can be **validated** with assgining a certain model to it. As in the example template, apiHandler method has 4 models assigned to it. These models can be defined in Models tab. 
 
 ```yaml
   - method: apiHandler
@@ -116,10 +118,11 @@ Every methods input, output and error can be **validated** with assgining a cert
     errorModel: apiError
     inputModel: apiInput
     outputModel: apiOutput
+    queryStringModel: queryStringModel
 ```
 ### handler
 
-Handler is the part where you relate the method to a function. 
+Handler is the part where you relate the method to a source code. 
 
 ```typescript
 export async function square(data: Data): Promise<Response> {
