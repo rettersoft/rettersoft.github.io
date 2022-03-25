@@ -1,6 +1,6 @@
 ---
 sidebar_label: 'Get started with CLI'
-sidebar_position: 2
+sidebar_position: 6
 ---
 
 # Get Started With CLI
