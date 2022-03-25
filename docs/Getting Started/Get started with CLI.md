@@ -21,7 +21,10 @@ If you get "The operation was rejected by your operating system." error in this 
 ---
 
 ## Setting Up Your Profile With CLI
-After CLI setup is complete, we can set your profile up. To do this visit "https://c.retter.io" and login. Than open settings ``Rbs Console > Right Top Dropdown Menu > Settings``. There you will see your SECRET_ID and SECRET_KEY. 
+After CLI setup is complete, we can set your profile up. To do this visit "https://c.retter.io" and login. Than open settings ``Rbs Console > Right Top Dropdown Menu > Settings``. There you will see your SECRET_ID and SECRET_KEY.
+
+![Settings Screen](../../static/img/Getting-Started-With-CLI-Settings.png)
+
 Decide your PROFILE_NAME and run the following command with your own PROFILE_NAME, SECRET_ID and SECRET_KEY.
 
 ```shell
@@ -42,6 +45,8 @@ If we had successfully logged in, we can initialize our project with decided PRO
 ```
 
 After this command you have a working project in your system. You can check it by revisiting "https://c.retter.io"' s Projects page. There you will see a project with your defined PROJECT_ALIAS.
+
+![Projects Screen](../../static/img/Getting-Started-With-CLI-ProjectsPage.png)
 
 ## Generating Classes
 
