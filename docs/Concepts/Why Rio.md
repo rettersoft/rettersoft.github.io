@@ -15,6 +15,10 @@ With Rio we can write our logic with object-oriented approach in a serverless sy
 
 ---
 
+<<<<<<< Updated upstream
 You may also want to check: [Youtube What is retter.io ?](https://www.youtube.com/channel/UCcSE3QHVrW4NwXyKmxQXvOw)
+=======
+You may also want to check [Youtube What is retter.io?](https://www.youtube.com/watch?v=OL-V1CqF8oY)
+>>>>>>> Stashed changes
 
 ---
