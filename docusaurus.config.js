@@ -74,12 +74,12 @@ const config = {
             position: 'left',
             label: 'Reference',
           },
-          {
-            type: 'doc',
-            docId: 'About/FAQ',
-            position: 'left',
-            label: 'About',
-          },
+          // {
+          //   type: 'doc',
+          //   docId: 'About/FAQ',
+          //   position: 'left',
+          //   label: 'About',
+          // },
           //{to: '/blog', label: 'Blog', position: 'left'},
           {
             href: 'https://github.com/facebook/docusaurus',
