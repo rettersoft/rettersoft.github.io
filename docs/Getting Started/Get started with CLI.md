@@ -43,6 +43,8 @@ If we had successfully logged in, we can initialize our project with decided PRO
 
 After this command you have a working project in your system. You can check it by revisiting "https://c.retter.io"' s Projects page. There you will see a project with your defined PROJECT_ALIAS.
 
+## Generating Classes
+
 ``rio generate``
 
 Create the rio file for each of classes
