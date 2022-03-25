@@ -14,8 +14,6 @@ export interface Context {
     projectId: string
     action: string
     identity: string
-    serviceId?: string
-    payload?: KeyValue
     headers?: KeyValue
     classId: string
     instanceId?: string
@@ -34,8 +32,6 @@ export interface Context {
     sourceIP: string
     sessionId?: string
     clientOs?: string
-    targetServiceIds?: string[]
-    relatedUserId?: string
 }
 ```
 
@@ -81,26 +77,16 @@ We might have methods on this class:
 Everytime these are called they are ordered:
 ![Wallet1](../../static/img/wallet_instance.png)
 
+<<<<<<< Updated upstream
 You can define two authorization methods in your template:
 ![Wallet1](../../static/img/wallet_methods.png)
+=======
+You can define two authorization method in your template:
+//IMAGE
+>>>>>>> Stashed changes
 
 ```typescript
-preAuthorizer: index.preAuthorizer
 authorizer: index.authorizer
-```
-
-### preAuthorizer 
-
-- preAuthorizer is called before messages are ordered.
-- preAuthorizer is called without state data. You can only use identity related information for authorization here.
-
-An example preauthorizer checking called method and caller identity name:
-
-```typescript
-export async function preAuthorizer(data: Data): Promise<Response> {
-    if(data.content.methodName === "sayHello" && data.context.identity === "rbs_anonymous_user") return { statusCode: 403 }
-    return { statusCode: 200 }
-}
 ```
 
 ### authorizer 
