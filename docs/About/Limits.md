@@ -9,7 +9,7 @@ sidebar_position: 2
 Every project has its usage limits according to its pricing plan. Some of the limits reset daily but some of them shows the instant status therefore not resetted. All these parameters are in the project scope. The limits can differ for every plan, their explanations are like below: 
 
 
-- **File Storage**: Total file size occuipied in the project. (Files stored with setFile operation) Limit shows allowed KB value.
+- **File Storage**: Total file size occupied in the project. (Files stored with setFile operation) Limit shows allowed KB value.
 - **Class Limit**: Total number of classes user can create in the project. 
 - **Lookup Storage** : Total size of lookup keys in the project. Limit shows allowed KB value.
 - **User Code Duration**: Total usage duration of the user code. Limit shows daily miliseconds value. 
