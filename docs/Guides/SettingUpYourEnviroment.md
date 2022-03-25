@@ -57,7 +57,7 @@ With `rio.ts` file, you can call other classes in the project or can access to m
 
 ## Deploy
 
-**You must deploy your code to become accessable.**  To deploy you can run:
+**You must deploy your code to become accessible.**  To deploy you can run:
 
 ```bash
 rio deploy
