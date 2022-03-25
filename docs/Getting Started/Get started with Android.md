@@ -1,6 +1,6 @@
 ---
 sidebar_label: 'Get started with Android'
-sidebar_position: 5
+sidebar_position: 4
 ---
 
 # Third Added Side Bar

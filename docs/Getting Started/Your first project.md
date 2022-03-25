@@ -1,6 +1,7 @@
 ---
+id: Your first project
 sidebar_label: 'Your first project'
-sidebar_position: 2
+sidebar_position: 1
 ---
 
 # Your First Project

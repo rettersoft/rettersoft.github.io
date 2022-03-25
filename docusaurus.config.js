@@ -52,7 +52,7 @@ const config = {
         items: [
           {
             type: 'doc',
-            docId: 'Getting Started/Intro',
+            docId: 'Getting Started/Your first project',
             position: 'left',
             label: 'Getting Started',
           },
