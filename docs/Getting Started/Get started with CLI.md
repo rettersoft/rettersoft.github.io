@@ -14,6 +14,7 @@ This article shows how to setup Rio' s CLI (Command Line Tool). So we can use Ri
 
 ---
 **NOTE**
+
 If you get "The operation was rejected by your operating system." error in this setup, you can add `sudo` before each command.
 
 ---
