@@ -4,7 +4,8 @@ sidebar_position: 3
 ---
 
 # Get Started With CLI
-This article shows how to setup Rio' s CLI (Command Line Tool). So we can use Rio with our prefered IDE.
+This article shows how to setup Rio' s CLI (Command Line Tool) and create a new project. So we can use Rio with our prefered IDE.
+You can also watch "https://www.youtube.com/watch?v=VR7xygriFRE" to follow along.
 
 ## Installation
 
