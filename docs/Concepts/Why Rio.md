@@ -15,6 +15,6 @@ With Rio (Retter.io) we can write our logic in an object-oriented approach in a 
 
 ---
 
-You may also want to check [Youtube What is retter.io ?](https://www.youtube.com/channel/UCcSE3QHVrW4NwXyKmxQXvOw))
+You may also want to check [Youtube What is retter.io ?](https://www.youtube.com/channel/UCcSE3QHVrW4NwXyKmxQXvOw)
 
 ---
