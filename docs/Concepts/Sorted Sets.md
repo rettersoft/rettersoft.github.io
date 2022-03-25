@@ -27,7 +27,7 @@ export async function addChatMessage(data: Data): Promise<StepResponse> {
         setName: "messages",
         sortKey: Date.now().toString(),
         data: {
-            "senderId": data.method.context.userId,
+            "senderId": data.context.userId,
             "message": data.request.body.message
         }
     })

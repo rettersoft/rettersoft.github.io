@@ -55,7 +55,7 @@ or you can just return some part of the state depending on the role of the reque
 
 ```typescript
 export async function getState(data: Data): Promise<Response> {
-    if(data.method.context.identity === 'superuser')
+    if(data.context.identity === 'superuser')
       // Return all state
       return { statusCode: 200, body: data.state }
     else 

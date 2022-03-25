@@ -67,6 +67,3 @@ export async function findUserByEmail(data: Data): Promise<StepResponse> {
   "instanceId": "01FPT7Z2W67MYZ3ZAKBDCPZ4AJ"
 }
 ```
-
-Also in the console you can find this instance by using its lookup key like below:
-//IMAGE

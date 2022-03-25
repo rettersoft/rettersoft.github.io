@@ -73,16 +73,16 @@ Now that we know that there will be a identity in the context object let's talk 
 We know that cloud object methods are called in a fifo manner.
 
 Let's say we have a wallet class holding a single amount value in its state.
-//IMAGE
+![Wallet1](../../static/img/wallet_class.png)
 
 We might have methods on this class:
-//IMAGE
+![Wallet2](../../static/img/wallet_fifo.png)
 
 Everytime these are called they are ordered:
-//IMAGE
+![Wallet1](../../static/img/wallet_instance.png)
 
 You can define two authorization methods in your template:
-//IMAGE
+![Wallet1](../../static/img/wallet_methods.png)
 
 ```typescript
 preAuthorizer: index.preAuthorizer

@@ -60,14 +60,12 @@ export async function getProductMetadata(data: Data): Promise<StepResponse> {
 
 ### Performance tip
 
-To make things even faster let's make this method readonly so it doesn't deal with FIFO logic. 
+To make things even faster let's make this methods type read so it doesn't deal with FIFO logic. 
 
 ```yaml
     - method: getProductMetadata
       tag: test
       sync: true
-      readonly: true
-      steps:
-          - id: default
-            handler: index.getProductMetadata
+      type: READ
+      handler: index.getProductMetadata
 ```
