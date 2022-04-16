@@ -52,31 +52,37 @@ const config = {
         items: [
           {
             type: 'doc',
-            docId: 'Getting Started/Your first project',
+            docId: 'Getting Started/About Documentation',
             position: 'left',
             label: 'Getting Started',
           },
           {
             type: 'doc',
-            docId: 'Concepts/Serverless Computing',
+            docId: 'Concepts/Projects/What are Projects',
             position: 'left',
             label: 'Concepts',
           },
           {
             type: 'doc',
-            docId: 'Guides/Setting Up Your Enviroment',
+            docId: 'Developer Console/Profile Settings - Secrets',
+            position: 'left',
+            label: 'Developer Console',
+          },
+          {
+            type: 'doc',
+            docId: 'Guides/Login Flow',
             position: 'left',
             label: 'Guides',
           },
           {
             type: 'doc',
-            docId: 'Reference/Method Data Context',
+            docId: 'Best Practices/Scaling Classes',
             position: 'left',
-            label: 'Reference',
+            label: 'Best Practices',
           },
           {
             type: 'doc',
-            docId: 'About/Limits',
+            docId: 'About/Good Read',
             position: 'left',
             label: 'About',
           },
@@ -101,12 +107,16 @@ const config = {
                 to: '/docs/Getting Started/Your first project',
               },
               {
-                label: 'Concepts',
-                to: '/docs/Concepts/Serverless Computing',
+                label: 'Developer Console',
+                to: '/docs/Concepts/Developer Console',
               },
               {
                 label: 'Guides',
                 to: '/docs/Guides/Setting Up Your Enviroment',
+              },
+              {
+                label: 'Best Practices',
+                to: '/docs/Concepts/Best Practices',
               },
               {
                 label: 'Reference',
