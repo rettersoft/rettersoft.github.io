@@ -82,7 +82,7 @@ const config = {
           },
           {
             type: 'doc',
-            docId: 'About/Good Read',
+            docId: 'About/Limits and Quotas',
             position: 'left',
             label: 'About',
           },
