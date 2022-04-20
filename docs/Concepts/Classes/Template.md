@@ -20,6 +20,7 @@ methods:
     handler: index.sayHello
 ```
 
+## Special methods
 
 There are some special methods you can define on a class:
 
@@ -27,7 +28,7 @@ There are some special methods you can define on a class:
 - getState
 - getInstanceId
 
-#### init
+### init
 
 When a new instance is created __init__ method is called. You can return an initial state for this instance.
 
@@ -38,7 +39,7 @@ export async function init(data: Data): Promise<Data> {
 }
 ```
 
-#### authorizer
+### authorizer
 
 Every call made to your class calls the authorizer method defined in your template file. You can break execution at this point. An example authorizer could be like:
 
@@ -50,7 +51,7 @@ export async function authorizer(data: Data): Promise<Response> {
 }
 ```
 
-#### getState
+### getState
 
 This method can be used to get state object when a client asks for state. You can return part of the state or even a modified version of the state to a caller by changing this function. 
 
@@ -84,7 +85,7 @@ export async function getState(data: Data): Promise<Response> {
 }
 ```
 
-#### getInstanceId
+### getInstanceId
 
 This is optional. If not defined each instance will have a unique id. However you might want to change this behaviour. Let's say you like to have a singleton instance.
 
@@ -95,7 +96,7 @@ export async function getInstanceId(data: Data): Promise<string> {
 ```
 
 
-## Methods in template file
+## Methods
 
 You can as many methods as you like in your template file.
 
@@ -116,24 +117,24 @@ methods:
     handler: index.sayByeBye
 ```
 
-### Method Fields
+## Method Fields
 
-#### method:string
+### method:string
 
 Name of method. 
 
-#### inputModel:string
+### inputModel:string
 
 Model file for post body.
 
-#### queryStringInputModel:string
+### queryStringInputModel:string
 
 Model file for values sent as query strings.
 
-#### tag:string
+### tag:string
 
 A string just for informational purpose.
 
-#### sync:bool
+### sync:bool
 
 Defines if a method is returning a response upon request. If sync is false, then all requests are immediately accepted and sent to instance execution queue. See method type and concurrency page for details.

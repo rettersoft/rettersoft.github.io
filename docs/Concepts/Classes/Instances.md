@@ -14,7 +14,7 @@ You can create instances of your classes. Each instance stores a different state
 
 https://{PROJECT_ID}}.api.retter.io/{PROJECT_ID}/INSTANCE/{CLASS_NAME}
 
-Every time you call this a new instance is generated and its instance id is returned in response. For example:
+Every time you call this a new instance is generated and its instance id and its method list is returned in response. For example:
 
 ```typescript
 {
@@ -32,6 +32,8 @@ Every time you call this a new instance is generated and its instance id is retu
     "response": {}
 }
 ```
+
+You can also check if this instance is a newly created one or not by checking `newInstance` field.
 
 Everytime you get a new instance a unique instanceId is being generated. Each instance has a unique id. 
 [See here](../GetInstanceID) how to change this behaviour.
