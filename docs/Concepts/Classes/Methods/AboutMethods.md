@@ -13,3 +13,6 @@ Methods are ways to attach new endpoints to classes. So by creating methods you 
 Endpoint for a method is like this:
 
 `https://{PROJECT_ID}}.api.retter.io/{PROJECT_ID}/CALL/{CLASS_NAME}/{METHOD_NAME}/{INSTANCE_ID}`
+
+
+TODO: Info about data object
