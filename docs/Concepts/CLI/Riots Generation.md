@@ -10,7 +10,7 @@ sidebar_position: 4
 
 ``rio generate``
 
-Create the rio file for each of classes
+Creates the rio file for each of classes
 
 ```shell
 > rio generate
