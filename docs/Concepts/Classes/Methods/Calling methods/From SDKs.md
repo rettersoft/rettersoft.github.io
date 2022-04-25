@@ -64,6 +64,9 @@ await cloudObject.sayHello({
 })
 ```
 
+:::info
 Every time you make changes to your backend code, you need to re-generate helper code and download it again.
+:::
+
 
 
