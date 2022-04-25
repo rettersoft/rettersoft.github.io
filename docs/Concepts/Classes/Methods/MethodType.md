@@ -52,3 +52,11 @@ You can call STATIC methods without instanceId.
 `https://{PROJECT_ID}}.api.retter.io/{PROJECT_ID}/CALL/{CLASS_NAME}/{METHOD_NAME}`
 
 They don't have state. They are running in concurrency N. They are good for stateless API methods. You can still read and write to resources like files and memory instead of instance state.
+
+### Method Types Table
+
+| Type        | State       | Concurrency | External Resources (Files etc) |
+| ----------- | ----------- | ----------- | ----------- |
+| READ      | Yes | N | YES |
+| WRITE   | YES | 1 | YES |
+| STATIC   | No | N | YES |

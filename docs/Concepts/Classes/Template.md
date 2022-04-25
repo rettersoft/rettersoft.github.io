@@ -95,7 +95,11 @@ export async function getInstanceId(data: Data): Promise<string> {
 }
 ```
 
-Every instance will have a unique id if `getInstanceId` of class is not implemented. If you implement `getInstanceId` you can create an instance with an instanceId you choose. For example you can create an instance with instanceId same as the caller users userId. See example below:
+Every instance will have a unique id if `getInstanceId` of class is not implemented. If you implement `getInstanceId` you can create an instance with an instanceId you choose. 
+
+#### Example:
+
+For example you can create an instance with instanceId same as the caller users userId. Think of an e-commerce application and you have a Cart class. You would like to create Cart instances with users Id. You can use this code to have each Cart instance the id of the user.
 
 
 Template file:
