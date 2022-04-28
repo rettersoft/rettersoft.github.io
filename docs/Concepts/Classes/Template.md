@@ -16,7 +16,7 @@ methods:
   - method: sayHello
     inputModel: SayHelloInput
     tag: test
-    sync: true
+    invocationType: IMMEDIATE
     handler: index.sayHello
 ```
 
@@ -131,12 +131,12 @@ methods:
   - method: sayHello
     inputModel: SayHelloInput
     tag: test
-    sync: true
+    invocationType: IMMEDIATE
     handler: index.sayHello
   - method: sayByeBye
     inputModel: SayByeByeInput
     tag: test
-    sync: true
+    invocationType: IMMEDIATE
     handler: index.sayByeBye
 ```
 

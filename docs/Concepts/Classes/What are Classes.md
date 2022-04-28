@@ -13,7 +13,7 @@ init: index.init
 getState: index.getState
 methods:
   - method: sayHello
-    sync: true
+    invocationType: IMMEDIATE
     handler: index.sayHello
 ```
 
@@ -48,7 +48,7 @@ init: index.init
 getState: index.getState
 methods:
   - method: updateProfile
-    sync: true
+    invocationType: IMMEDIATE
     handler: index.updateProfile
 ```
 

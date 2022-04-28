@@ -49,7 +49,7 @@ methods:
   - method: sayHello
     inputModel: SayHelloInput
     tag: test
-    sync: true
+    invocationType: IMMEDIATE
     handler: index.sayHello
 ```
 
@@ -64,7 +64,7 @@ methods:
   - method: sayHello
     queryStringInputModel: SayHelloInput
     tag: test
-    sync: true
+    invocationType: IMMEDIATE
     handler: index.sayHello
 ```
 

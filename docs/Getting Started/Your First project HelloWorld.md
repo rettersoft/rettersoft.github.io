@@ -43,13 +43,13 @@ For demo purposes let's create a todo app backend. A simple todo app needs 3 met
 ...rest
 methods:
     - method: listTodos
-      sync: true
+      invocationType: IMMEDIATE
       handler: index.listTodos
     - method: createTodo
-      sync: true
+      invocationType: IMMEDIATE
       handler: index.createTodo
     - method: markTodoAsCompleted
-      sync: true
+      invocationType: IMMEDIATE
       handler: index.markTodoAsCompleted
 ```
 

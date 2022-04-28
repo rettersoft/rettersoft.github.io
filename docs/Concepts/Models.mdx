@@ -110,7 +110,7 @@ methods:
     outputModel: ProfileModel
     errorModel: ErrorModel
     type: WRITE
-    sync: true
+    invocationType: IMMEDIATE
     handler: index.update
 
   - method: getStoreInfo
@@ -118,7 +118,7 @@ methods:
     outputModel: ProfileModel
     errorModel: ErrorModel
     type: READ
-    sync: true
+    invocationType: IMMEDIATE
     handler: index.profile
 ```
 
@@ -130,7 +130,7 @@ After we created the model (in this example CreateTodoInput and CreateTodoOutput
 ...rest
 methods:
     - method: createTodo
-      sync: true
+      invocationType: IMMEDIATE
       inputModel: CreateTodoInput     # CreateTodoInput model added
       outputModel: CreateTodoOutput   # CreateTodoOutput model added
       handler: index.createTodo
