@@ -1,0 +1,79 @@
+---
+id: JSON or Form
+sidebar_label: 'JSON or Form'
+sidebar_position: 1
+---
+
+# JSON or Form
+
+Methods we have wrote may need some variables from outside. We could always provide them with JSON
+but using `models` is much more convenient. Because of models allow us to use `Forms` which are easier
+to fill and harder to make mistake doing so.
+
+## Filling the `Request`'s
+
+It is easier to understand this concept with a basic example with one method and one model.
+
+>We have a method which has `userValidation Model` as its `inputModel`and writes the profile attributes to its own profile.
+>Finally writes that profile to it's response.
+
+```typescript title="Classes/User"
+export async function setOfficeProfile(data: Data): Promise<StepResponse> {
+  
+  let profile = {phoneNumber: "", mail: "", firstName: "", lastName: ""}
+
+  profile.phoneNumber     = data.request.body.profile.phoneNumber
+  profile.mail            = data.request.body.profile.mail
+  profile.firstName       = data.request.body.profile.firstName
+  profile.lastName        = data.request.body.profile.lastName
+
+  data.response = {
+    statusCode: 200,
+    body: {profile}
+  };
+  return data;
+}
+```
+
+>Also we have the mentioned `userValidationModel` which has a format for the profile.
+```JSON title="userValidation"
+{
+  "properties": {
+    "phoneNumber": {
+      "type": "string"
+    },
+    "firstName": {
+      "type": "string"
+    },
+    "mail": {
+      "type": "string"
+    },
+    "lastName": {
+      "type": "string"
+    }
+  },
+  "type": "object",
+  "required": [
+    "firstName",
+    "lastName",
+    "phoneNumber"
+  ]
+}
+```
+
+### Filling the `Request` with JSON
+
+Let's fill the `request`:
+
+```JSON title="Request"
+{
+  "profile": {
+    "phoneNumber": "",
+    "firstName": "",
+    "mail": "",
+    "lastName" ""
+  }
+}
+```
+
+
