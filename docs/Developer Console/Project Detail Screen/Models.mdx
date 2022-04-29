@@ -40,7 +40,7 @@ than define and name the model. That's all we have created a model!.
 
 ## Using Models
 
-For using navigate to the class you want to use your model on and open the `template.yml` file.
+For using Models, navigate to the `Classes` panel and find the class you want to use your model on and open its `template.yml` file.
 Than in the methods, search for the method you want to add your model. You can use your model as
 `inputModel` or `outputModel`. Decide what do you want to use your model as than add your model name.
 
@@ -50,10 +50,10 @@ preAuthorizer: index.preAuthorizer
 init: index.init
 getState: index.getState
 methods:
-  - method: sayHello
+  - method: sayHello # The method we have added our model to
     tag: test
     sync: true
-    inputModel: SayHelloInput
+    inputModel: SayHelloInput # Our model added as a input model
     steps:
       - id: default
         handler: index.sayHello
