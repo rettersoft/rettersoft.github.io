@@ -19,17 +19,17 @@ It is easier to understand this concept with a basic example with one method and
 
 ```typescript title="Classes/User"
 export async function setOfficeProfile(data: Data): Promise<StepResponse> {
-  
-  let profile = {phoneNumber: "", mail: "", firstName: "", lastName: ""}
 
-  profile.phoneNumber     = data.request.body.profile.phoneNumber
-  profile.mail            = data.request.body.profile.mail
-  profile.firstName       = data.request.body.profile.firstName
-  profile.lastName        = data.request.body.profile.lastName
+  let {phoneNumber, mail, firstName, lastName} = data.request.body;
 
   data.response = {
     statusCode: 200,
-    body: {profile}
+    body: {
+      phoneNumber,
+      mail,
+      firstName,
+      lastName
+    }
   };
   return data;
 }
@@ -38,21 +38,21 @@ export async function setOfficeProfile(data: Data): Promise<StepResponse> {
 >Also we have the mentioned `userValidationModel` which has a format for the profile.
 ```JSON title="userValidation"
 {
+  "type": "object",
   "properties": {
+    "mail": { // optional
+      "type": "string"
+    },
+    "lastName": {
+      "type": "string"
+    },
     "phoneNumber": {
       "type": "string"
     },
     "firstName": {
       "type": "string"
-    },
-    "mail": {
-      "type": "string"
-    },
-    "lastName": {
-      "type": "string"
     }
   },
-  "type": "object",
   "required": [
     "firstName",
     "lastName",
@@ -67,13 +67,30 @@ Let's fill the `request`:
 
 ```JSON title="Request"
 {
-  "profile": {
-    "phoneNumber": "",
-    "firstName": "",
-    "mail": "",
-    "lastName" ""
-  }
+  "phoneNumber": "exPhoneNumber",
+  "firstName": "exFirstName",
+  "mail": "ex@mail.com", // optional
+  "lastName": "exLastName"
 }
 ```
+>#### Result:
+>![requestResponseJSONFormat](/img/requestResponseJSONFormat.png)
+>:::note
+If you try to make a request without optional variables (mail in this case) there won' t be any warnings.
+It would be like they do not exist.
+:::
 
+### Filling the `Request` with Form
 
+Let's fill the `request`:
+
+![requestFormFormat](/img/requestFormFormat.png)
+:::note
+After you fill the `Form` check the `Body`. You will see that JSON format has been filled.
+This feature will also be applied when you fill the body with JSON. Form will be filled with your
+variables and with their values.
+:::
+
+>#### Result:
+>![requestResponseFormFormat](/img/requestResponseFormFormat.png)
+  
