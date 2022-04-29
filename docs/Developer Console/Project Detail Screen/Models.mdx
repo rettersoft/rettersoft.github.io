@@ -1,0 +1,63 @@
+---
+id: Models
+sidebar_label: 'Models'
+sidebar_position: 2
+---
+
+# Models
+
+Models are mentioned in the [Concepts Model](/docs/Concepts/Models/) in detail. In this page,
+we are going to look at how to create and how to use our models in `Developer Console`.
+
+## Creating Models
+
+In your project's panel navigate to `Models` at the left. For creating a new model, click `Create Model` in the upcoming page
+than define and name the model. That's all we have created a model!.
+
+![DefiningModels](/img/DefiningModels.png)
+
+> Example of a model
+>```JSON title=exampleModel
+{
+  "properties": {
+    "lastName": {
+      "type": "string",
+      "description": "The person's last name."
+    },
+    "firstName": {
+      "type": "string",
+      "description": "The person's first name."
+    },
+    "age": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Age in years which must be equal to or greater than zero."
+    }
+  },
+  "type": "object"
+}
+```
+
+## Using Models
+
+For using navigate to the class you want to use your model on and open the `template.yml` file.
+Than in the methods, search for the method you want to add your model. You can use your model as
+`inputModel` or `outputModel`. Decide what do you want to use your model as than add your model name.
+
+> Like Below.
+```yml title=ProjectName/Classes/Test/template.yml
+preAuthorizer: index.preAuthorizer
+init: index.init
+getState: index.getState
+methods:
+  - method: sayHello
+    tag: test
+    sync: true
+    inputModel: SayHelloInput
+    steps:
+      - id: default
+        handler: index.sayHello
+```
+
+That's it you can make use of your model now.
+

@@ -16,7 +16,7 @@ Open the panel in the left in the test view and click on `State`. After that you
 
 ![StatePage](/img/StatesPage.png)
 
-After that you can `òptionally` fill the identity, UserId and ready to get the state by clicking `get`button.
+After that you can `òptionally` fill the identity, UserId. After that you are ready to get the state by clicking `get`button.
 
 
 > This example shows getting a state has a `message` written on it.
