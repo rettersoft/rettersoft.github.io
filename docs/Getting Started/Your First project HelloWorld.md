@@ -55,7 +55,7 @@ methods:
 
 Now, we can create corresponding functions.
 
-Rio has first-class typescript support for easing developers life. We'll leverage typescript when creating methods. Each method receives a `data` object and must return a `StepResponse`. You can find out more about this in [Method Data Context Reference](/docs/Reference/Method%20Data%20Context/).
+Rio has first-class typescript support for easing developers life. We'll leverage typescript when creating methods. Each method receives a `data` object and must return a `StepResponse`. You can find out more about this in [Method Data Context Reference](/docs/Concepts/Classes/Methods/AboutMethods/).
 
 ```ts
 // index.ts
@@ -80,7 +80,7 @@ export async function markTodoAsCompleted(data: Data): Promise<StepResponse> {
 }
 ```
 
-Now, we can impletement our logic. Rio methods are statefull. We don't need any database, we can just use simple state. Find out more on [State](/docs/Concepts/State/) docs.
+Now, we can impletement our logic. Rio methods are statefull. We don't need any database, we can just use simple state. Find out more on [State](/docs/Concepts/Classes/State/) docs.
 
 To creating a list item, we need a task. We can get task information from the data's request object.
 
