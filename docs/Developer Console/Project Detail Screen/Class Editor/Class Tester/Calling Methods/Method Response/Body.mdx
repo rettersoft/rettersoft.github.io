@@ -6,8 +6,17 @@ sidebar_position: 1
 
 # Body
 
-In your projects, probably the most common used method response will be `Body`.
-It is simple and easy to use. Most of the time we can think of the `Body` as method's return value.
+In your projects, probably the most common used method response will be `body`.
+It is simple and easy to use. Most of the time we can think of the `body` as method's return value.
+
+> To fill the body of a method's response, fill the `data.response`'s `body` as shown:
+```typescript
+data.response = {
+  body: {
+    // Variable
+  }
+};
+```
 
 ## Example code
  
