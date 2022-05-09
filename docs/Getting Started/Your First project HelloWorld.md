@@ -123,4 +123,4 @@ export async function listTodos(data: Data): Promise<StepResponse> {
 }
 ```
 
-Now, we can implement out methods in [client side](/docs/Getting%20Started/Get%20started%20with%20web/).
+Now, we can implement out methods in client side.
