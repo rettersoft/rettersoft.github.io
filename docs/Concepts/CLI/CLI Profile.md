@@ -7,7 +7,7 @@ sidebar_position: 2
 # CLI Profile
 
 ## Setting Up Your Profile With CLI
-After CLI setup is complete, we can set your profile up. To do this visit "https://c.retter.io" and login. Than open settings ``Rbs Console > Right Top Dropdown Menu > Settings``. There you will see your SECRET_ID and SECRET_KEY.
+After CLI setup is complete, we can set your profile up. To do this visit [retter.io](https://c.retter.io) and login. Than open settings ``Rbs Console > Right Top Dropdown Menu > Settings``. There you will see your SECRET_ID and SECRET_KEY.
 
 ![Settings](/img/Getting-Started-With-CLI-Settings.png)
 

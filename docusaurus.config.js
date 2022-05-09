@@ -112,19 +112,23 @@ const config = {
             items: [
               {
                 label: 'Getting Started',
-                to: '/docs/Getting Started/Your first project',
+                to: '/docs/Getting Started/About Documentation',
+              },
+              {
+                label: 'Concepts',
+                to: '/docs/Concepts/Procets/What are Projects',
               },
               {
                 label: 'Developer Console',
-                to: '/docs/Concepts/Developer Console',
+                to: '/docs/Concepts/Profile Settings Secrets',
               },
               {
                 label: 'Guides',
-                to: '/docs/Guides/Setting Up Your Enviroment',
+                to: '/docs/Guides/Login Flow',
               },
               {
                 label: 'Best Practices',
-                to: '/docs/Concepts/Best Practices',
+                to: '/docs/Best Practices/Scaling Classes',
               },
               {
                 label: 'Reference',
@@ -132,7 +136,7 @@ const config = {
               },
               {
                 label: 'About',
-                to: '/docs/About/Limits',
+                to: '/docs/About/Limits and Quotas',
               },
             ],
           },
