@@ -116,11 +116,11 @@ const config = {
               },
               {
                 label: 'Concepts',
-                to: '/docs/Concepts/Projets/What are Projects',
+                to: '/docs/Concepts/Projects/What are Projects',
               },
               {
                 label: 'Developer Console',
-                to: '/docs/Developer Console/Profile Settings Secrets',
+                to: '/docs/Developer Console/Profile Settings - Secrets',
               },
               {
                 label: 'Guides',
