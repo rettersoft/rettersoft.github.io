@@ -5,3 +5,5 @@ sidebar_position: 1
 ---
 
 # Profile Settings - Secrets
+
+![ProfileSecrets](/img/ProfileSecrets.png)
