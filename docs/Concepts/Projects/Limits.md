@@ -20,14 +20,14 @@ Each project has it's own subscription. A subscription defines how much resource
 | ----------- | ----------- | ----------- | ----------- |
 | File Storage      | KiloBytes | 20000 | Size of total stored files on Rio disk |
 | Class Limit   | Count | 5 | Number of classes you can have. |
-| Lu Storage   | Count | 1000 | Size of lookup key storage |
+| Lu Storage   | KiloByte | 1000 | Size of data stored in `lookup key` storage |
 | User Code Duration   | miliseconds | 1500000 | Total miliseconds your code can run |
-| Operations   | count | 5000 | Number of operations you can call |
+| Operations   | count | 5000 | Number of operations you can call. Operations: file, memory, lookup keys etc. |
 | State Size     | KiloBytes | 100000 | Total size of instance state data you can store |
-| Api Call     | KiloBytes | 5000 | Number of API calls made to your classes |
-| Gm Storage     | KiloBytes | 1000 | Size of global memory usage |
+| Api Call     | KiloBytes | 5000 | Number of API calls made to your classes. These consist of calls from outside of Rio. Nor the ones made from RDK or Schedule/Task commands. |
+| Gm Storage     | KiloBytes | 1000 | Size of `global memory` usage |
 | Schedule     | Count | 100 | Number of schedule calls you can make. |
-| Method Lambda     | KiloBytes | 5000 |  |
+| Method Lambda     | Count | 5000 | Method calls made within Rio. These can be made with RDK or Schedule/Task commands. |
 | Ss Storage     | KiloBytes | 5000 | Size of data stored in `Sorted Sets` |
 
 ### Hard Limits
