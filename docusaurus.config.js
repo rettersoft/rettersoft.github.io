@@ -76,24 +76,24 @@ const config = {
             position: 'left',
             label: 'Developer Console',
           },
-          {
-            type: 'doc',
-            docId: 'Guides/Login Flow',
-            position: 'left',
-            label: 'Guides',
-          },
-          {
-            type: 'doc',
-            docId: 'Best Practices/Scaling Classes',
-            position: 'left',
-            label: 'Best Practices',
-          },
-          {
-            type: 'doc',
-            docId: 'About/Limits and Quotas',
-            position: 'left',
-            label: 'About',
-          },
+          // {
+          //   type: 'doc',
+          //   docId: 'Guides/Login Flow',
+          //   position: 'left',
+          //   label: 'Guides',
+          // },
+          // {
+          //   type: 'doc',
+          //   docId: 'Best Practices/Scaling Classes',
+          //   position: 'left',
+          //   label: 'Best Practices',
+          // },
+          // {
+          //   type: 'doc',
+          //   docId: 'About/Limits and Quotas',
+          //   position: 'left',
+          //   label: 'About',
+          // },
           // {
           //   to: '/blog', label: 'Blog', position: 'left'
           // },
