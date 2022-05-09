@@ -1,0 +1,42 @@
+---
+id: Body
+sidebar_label: 'Body'
+sidebar_position: 1
+---
+
+# Body
+
+In your projects, probably the most common used method response will be `Body`.
+It is simple and easy to use. Most of the time we can think of the `Body` as method's return value.
+
+## Example code
+ 
+This code gathers the value of `phoneNumber`, `mail`, `firstName`, `lastName` and writes these variables to response's `body`.
+ 
+```typescript title="projectName/Classes/index.ts"
+export async function setOfficeProfile(data: Data): Promise<StepResponse> {
+  let {phoneNumber, mail, firstName, lastName} = data.request.body;
+  data.response = {
+    statusCode: 200,
+    body: {
+      phoneNumber,
+      mail,
+      firstName,
+      lastName
+    }
+  };
+  return data;
+}  
+```
+### Response's Body
+
+After illustrated method's variables filled, our response will be like this: 
+
+```JSON title="Response's body"
+{
+  "phoneNumber": "01234567890",
+  "mail": "examplemail@mail.com",
+  "firstName": "exampleFirstName",
+  "lastName": "exampleLastName"
+}
+```
