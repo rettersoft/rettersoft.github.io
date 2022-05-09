@@ -26,11 +26,11 @@ export async function setOfficeProfile(data: Data): Promise<StepResponse> {
   
   if (mail == null)
   {
-    console.log("Mail is empty!"); // We can see if the mail is unregistered
+    console.log("Mail is empty!") // We can see if the mail is unregistered
     mail = "default@mail.com"
   }
 
-  console.log(mail); // prints the mail
+  console.log(mail) // prints the mail
 
   data.response = {
     statusCode: 200,
