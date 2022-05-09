@@ -116,11 +116,11 @@ const config = {
               },
               {
                 label: 'Concepts',
-                to: '/docs/Concepts/Procets/What are Projects',
+                to: '/docs/Concepts/Projets/What are Projects',
               },
               {
                 label: 'Developer Console',
-                to: '/docs/Concepts/Profile Settings Secrets',
+                to: '/docs/Developer Console/Profile Settings Secrets',
               },
               {
                 label: 'Guides',
@@ -129,10 +129,6 @@ const config = {
               {
                 label: 'Best Practices',
                 to: '/docs/Best Practices/Scaling Classes',
-              },
-              {
-                label: 'Reference',
-                to: '/docs/Reference/Method Data Context',
               },
               {
                 label: 'About',
