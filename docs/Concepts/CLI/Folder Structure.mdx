@@ -1,0 +1,154 @@
+---
+id: Folder Structure
+sidebar_label: 'Folder Structure'
+sidebar_position: 3
+---
+
+# Folder Structure
+
+When your CLI setup is complete you have basic, working project. Structure of this project may seem complicated.
+Don' Worry! We will go over everthing what is important to us.
+
+When complete you should have a folder structure looking like this:
+
+![FolderStructure](/img/Untouched_Folder_Structure.png)
+
+## Classes
+
+As you know, Rio is an object-oriented cloud provider. This means we can create number of classes.
+
+## Adding a New Class
+
+For creating a new class, just create a new folder with the class name you want in the `classes` folder.
+
+:::caution
+  Numbers are not allowed in class names.
+:::
+
+> Adding a new class named `order`:
+![FolderStructure](/img/class_folder_structure.png)
+
+As you can see we have additionally 4 files in the class. Let's have a look at them.
+
+### index.ts
+Our main logic goes here. We import our models, dependencies here.
+
+For example a `Hello world` looks like this in `index.ts`.
+
+``` ts title="classes/order/index.ts
+import RDK, { Data, InitResponse, Response, StepResponse } from "@retter/rdk";
+
+const rdk = new RDK();
+
+export async function authorizer(data: Data): Promise<Response> {
+    return { statusCode: 200 };
+}
+
+export async function init(data: Data): Promise<Data> {
+    data.state.public = {
+        message: "Hello World"
+    }
+    return data
+}
+
+export async function getState(data: Data): Promise<Response> {
+    return { statusCode: 200, body: data.state };
+}
+
+export async function sayHello(data: Data): Promise<Data> {
+    data.response = {
+        statusCode: 200,
+        body: { message: data.state.public.message },
+    };
+    return data;
+}
+```
+
+### package.json
+
+This determines: which class we are in, which `dependencies` we are going to use, and which version we are working with.
+
+A small example of this file:
+
+```json title="classes/order/package.json"
+{
+  "name": "order",
+  "version": "1.0.0",
+  "dependencies": {
+    "@retter/rdk": "1.1.1"
+  }
+}
+```
+
+###  rio.ts
+We don' t have to add rio.ts to our classes. But this file gives us more functionality.
+Such as, using the ecosystem's models and classes, determining the input or output of a method etc.
+Its a big `helper` to our projects.
+
+> To add rio.ts, run: 
+```shell title:terminal
+  > rio generate
+```
+
+### template.yml
+With this file we determine how and which methods are going to be used.
+
+```yml title:classes/order.template.yml
+init: index.init
+getState: index.getState
+methods:
+  - method: sayHello
+    tag: order
+    invocationType: IMMEDIATE
+    handler: index.sayHello
+```
+
+## Overall Project File Structure
+
+> After adding a another class our project is looking like this:
+![FolderStructure](/img/folder_structure.png)
+
+## Models
+
+Models are used for determining the output or input of the methods.
+
+### Adding a new Model
+
+Add a mew json folder under the `models` folder with the model name you want. And that's it!
+
+> Example of a model:
+```json title:models/sayHelloInput.json
+{
+  "type": "object",
+  "properties": {
+    "firstName": {
+      "type": "string",
+      "description": "The person's first name."
+    },
+    "lastName": {
+      "type": "string",
+      "description": "The person's last name."
+    },
+    "age": {
+      "description": "Age in years which must be equal to or greater than zero.",
+      "type": "integer",
+      "minimum": 0
+    }
+  }
+}
+```
+
+## package.json
+
+smt smt
+
+## rio.json
+
+Rio json holds your projectId. 
+
+```json title:rio.json
+{
+  "projectId": "*********" // your projectId visible here.
+}
+```
+

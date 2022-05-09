@@ -1,0 +1,91 @@
+---
+id: Files
+sidebar_label: 'Files'
+sidebar_position: 5
+---
+
+# Files
+
+Cloud Objects serves you simple APIs to manage files.
+
+## setFile
+
+```typescript title="classes/FileManager/file.ts"
+import RDK, { Data,StepResponse } from '@retter/rdk';
+
+const rdk = new RDK();
+
+export async function uploadFile(data: Data): Promise<StepResponse> {
+
+    const { content } = data.request.body;
+
+    await rdk.setFile({
+        fileName: 'test.txt',
+        data: content,
+    });
+
+    data.response = {
+        status: 200,
+        body: {
+            message: 'File uploaded',
+        },
+    };
+
+    return data;
+}
+```
+
+## getFile
+
+```typescript title="classes/FileManager/file.ts"
+import RDK, { Data,StepResponse } from '@retter/rdk';
+
+const rdk = new RDK();
+
+export async function getImage(data: Data): Promise<StepResponse> {
+
+    const { imageId } = data.request.querStringParams;
+
+    const fileResponse = await rdk.getFile({
+        fileName: `${imageId}.png`
+    });
+
+    data.response = {
+        status: 200,
+        body: fileResponse.data, // file content as base64 buffer
+        headers: {
+            'Content-Type': 'image/png', // Set the content type
+            'Cache-Control': 'public, max-age=31536000' // Cache for a year
+        },
+        isBase64: true, // Set the response as base64
+    };
+
+    return data;
+}
+```
+
+## deleteFile
+
+```typescript title="classes/FileManager/file.ts"
+import RDK, { Data,StepResponse } from '@retter/rdk';
+
+const rdk = new RDK();
+
+export async function removeImage(data: Data): Promise<StepResponse> {
+
+    const { imageId } = data.request.body;
+
+    await rdk.deleteFile({
+        fileName: `${imageId}.png`,
+    });
+
+    data.response = {
+        status: 200,
+        body: {
+            message: 'Image deleted',
+        },
+    };
+
+    return data;
+}
+```
