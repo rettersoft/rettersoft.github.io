@@ -1,7 +1,7 @@
 ---
 id: CLI Profile
 sidebar_label: 'CLI Profile'
-sidebar_position: 1
+sidebar_position: 2
 ---
 
 # CLI Profile

@@ -1,10 +1,10 @@
 ---
 id: IOS
-sidebar_label: 'IOS'
+sidebar_label: 'iOS'
 sidebar_position: 1
 ---
 
-# IOS
+# iOS
 
 ## Requirements
 

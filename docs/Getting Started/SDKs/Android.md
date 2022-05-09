@@ -1,6 +1,6 @@
 ---
 id: Android
-sidebar_label: 'Andorid'
+sidebar_label: 'Android'
 sidebar_position: 2
 ---
 
