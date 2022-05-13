@@ -43,14 +43,13 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
-      // algolia:{
-      //   apiKey: "",
-      //   indexName: "",
-      //   contextualSearch: true,
-      //   placeHolder: "Search In Rio Docs",
-      //   appId: "JRT76BH7W3",
-      //   // other search paramateres goes here
-      // },
+      algolia:{
+        appId: 'BNC7WBD0BQ',
+        apiKey: "20076e9d4528af94670fff08b260e8a9",
+        indexName: "DocSearch_retter",
+        contextualSearch: true,
+        placeHolder: "Search In Rio Docs",
+      },
       navbar: {
         title: 'Rio Doc',
         logo: {
