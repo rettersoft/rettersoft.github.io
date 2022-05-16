@@ -8,6 +8,8 @@ sidebar_position: 4
 
 Think of rtbs as one big computer. There are object instances all over. Some instances can write to a shared memory for other instances to consume. 
 
+## Why Memory?
+
 For example a __Product__ class can write its metadata to its state like this:
 
 ```typescript
@@ -18,7 +20,11 @@ export async function update(data: Data): Promise<StepResponse> {
 }
 ```
 
-If another object would like to read this products state then it will have to fetch its instance and read its state. To make things faster let's write my metadata to memory too.
+If another object would like to read this products state then it will have to fetch its instance and read its state.
+
+## Usage of Memory
+
+To make things faster let's write my metadata to memory too.
 
 ```typescript
 export async function update(data: Data): Promise<StepResponse> {
