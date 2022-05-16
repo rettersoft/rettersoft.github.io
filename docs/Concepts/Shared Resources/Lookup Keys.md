@@ -8,6 +8,8 @@ sidebar_position: 2
 
 Instances have unique id's. However sometimes we need an easier method to find our instances instead of instance id's. 
 
+## Usage of Lookup Keys
+
 For example think of a __User__ class. Users have user id's but they might also have emails. Let's create a updateProfile method and mark this instance with users email.
 
 ```typescript

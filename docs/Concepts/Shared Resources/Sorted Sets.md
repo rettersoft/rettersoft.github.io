@@ -8,15 +8,20 @@ sidebar_position: 3
 
 An instance has a state to store its data. But there are some cases where a state is not the perfect place to store your data. 
 
+## Usage of Sorted Sets
+
 Think of a chat application. A chat room instance cannot hold all messages since the beginning of the time. At some point some messages need to be stored somewhere else. 
 
 Sorted sets can be used for these kind of use cases. Sorted sets are basically a key value storage with a part and sort key. First get a sdk instance.
 
+### Importing
 ```typescript
 import SDK, { Data, InitResponse, Response, StepResponse } from './CloudObjects'
 
 const sdk = new SDK()
 ```
+
+### Set Values with Sorted List
 
 Now we can start writing to a sorted set like this:
 
@@ -37,6 +42,9 @@ export async function addChatMessage(data: Data): Promise<StepResponse> {
     return data
 }
 ```
+
+### Get Values from Sorted List
+
 When a new user opens this chat room she needs to be able to fetch latest messages like:
 
 ```typescript
