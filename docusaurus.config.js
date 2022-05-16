@@ -45,10 +45,14 @@ const config = {
     ({
       // algolia:{
       //   appId: 'BNC7WBD0BQ',
-      //   apiKey: "0ddda64c4b935969932d3c0b4a023a98",
-      //   indexName: "DocSearch_retter",
+      //   apiKey: "20076e9d4528af94670fff08b260e8a9",
+      //   indexName: "DocSearch_retterbusinessservices",
       //   contextualSearch: true,
       //   placeHolder: "Search In Rio Docs",
+
+      //   // Optional: Algolia search parameters
+  
+      //   // Optional: path for search page that enabled by default (`false` to disable it)
       // },
       navbar: {
         title: 'Rio Doc',
@@ -169,3 +173,6 @@ const config = {
 };
 
 module.exports = config;
+
+
+// query=g&attributesToRetrieve=%5B%22hierarchy.lvl0%22%2C%22hierarchy.lvl1%22%2C%22hierarchy.lvl2%22%2C%22hierarchy.lvl3%22%2C%22hierarchy.lvl4%22%2C%22hierarchy.lvl5%22%2C%22hierarchy.lvl6%22%2C%22content%22%2C%22type%22%2C%22url%22%5D&attributesToSnippet=%5B%22hierarchy.lvl1%3A10%22%2C%22hierarchy.lvl2%3A10%22%2C%22hierarchy.lvl3%3A10%22%2C%22hierarchy.lvl4%3A10%22%2C%22hierarchy.lvl5%3A10%22%2C%22hierarchy.lvl6%3A10%22%2C%22content%3A10%22%5D&snippetEllipsisText=%E2%80%A6&highlightPreTag=%3Cmark%3E&highlightPostTag=%3C%2Fmark%3E&hitsPerPage=20&facetFilters=%5B%22language%3Aen%22%2C%5B%22docusaurus_tag%3Adefault%22%2C%22docusaurus_tag%3Adocs-default-current%22%5D%5D
