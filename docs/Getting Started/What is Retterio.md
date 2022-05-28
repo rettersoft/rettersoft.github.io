@@ -16,6 +16,8 @@ There are some apps like realtime gaming, you cannot use Rio. These may require 
 
 We have created Rio for our internal use in retter while writing custom software for our clients. We can use Rio to deliver cloud software up to 10x faster than directly using AWS.
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/OL-V1CqF8oY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ### Underlying Technology
 
 Rio is running completely serverlessly on AWS. We use Lambda, DynamoDB, S3, Kinesis, SNS, Eventbridge etc in the background. However anyone using Rio doesn't have to have any experience on these services. Rio handles everything seamlessly.
